@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us | HomeVista</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f8fafc;
+            color: #172033;
+            font-family: Arial, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .contact-hero {
+            padding: 65px 20px;
+            text-align: center;
+            color: white;
+            background: linear-gradient(120deg, #102a56, #1769d2);
+        }
+
+        .contact-hero span {
+            display: inline-block;
+            padding: 8px 15px;
+            border: 1px solid #ffffff55;
+            border-radius: 25px;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .contact-hero h1 {
+            font-size: 42px;
+            margin: 8px 0 12px;
+        }
+
+        .contact-hero p {
+            max-width: 620px;
+            margin: auto;
+            line-height: 1.7;
+            color: #e2eaff;
+        }
+
+        .contact-container {
+            max-width: 1150px;
+            margin: 55px auto;
+            padding: 0 25px;
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .contact-info,
+        .contact-form {
+            background: white;
+            border: 1px solid #e5eaf2;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 25px #17203308;
+        }
+
+        .contact-info h2,
+        .contact-form h2 {
+            font-size: 25px;
+            margin: 0 0 12px;
+        }
+
+        .section-description {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .contact-icon {
+            min-width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1769d2;
+            background: #eaf2ff;
+            font-size: 18px;
+        }
+
+        .contact-item h3 {
+            font-size: 15px;
+            margin: 2px 0 7px;
+        }
+
+        .contact-item p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: #1769d2;
+            background: #eaf2ff;
+        }
+
+        .social-links a:hover {
+            color: white;
+            background: #1769d2;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 9px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #dbe3ee;
+            border-radius: 9px;
+            outline: none;
+            background: white;
+            color: #172033;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #1769d2;
+            box-shadow: 0 0 0 3px #1769d21a;
+        }
+
+        .form-group textarea {
+            min-height: 125px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            width: 100%;
+            border: none;
+            padding: 15px;
+            border-radius: 9px;
+            color: white;
+            background: #1769d2;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background: #1055b1;
+        }
+
+        .contact-note {
+            color: #64748b;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 14px;
+        }
+
+        .contact-bottom {
+            max-width: 1100px;
+            margin: 0 auto 55px;
+            padding: 35px 25px;
+            text-align: center;
+            background: #eaf2ff;
+            border-radius: 16px;
+        }
+
+        .contact-bottom i {
+            color: #1769d2;
+            font-size: 28px;
+        }
+
+        .contact-bottom h2 {
+            margin-bottom: 10px;
+        }
+
+        .contact-bottom p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .contact-bottom a {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 13px 22px;
+            color: white;
+            background: #1769d2;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .contact-footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+
+        @media (max-width: 800px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                margin: 35px auto;
+            }
+
+            .contact-bottom {
+                margin: 0 20px 35px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .contact-hero h1 {
+                font-size: 32px;
+            }
+
+            .contact-container {
+                padding: 0 15px;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 22px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+       
+      <a href="index.html" class="logo">
+    <img src="images/logo.png" alt="HomeVista Logo">
+    <span class="home-text">Home</span>
+    <span class="vista-text">Vista</span>
+</a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="buy.html">Buy</a>
+            <a href="rent.html">Rent</a>
+            <a href="projects.html">Projects</a>
+            <a href="commercial.html">Commercial</a>
+            <a href="agents.html">Agents</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+
+       
+
+
+    </header>
+
+    <!-- Hero -->
+    <section class="contact-hero">
+        <span>WE'RE HERE TO HELP</span>
+        <h1>Let's Talk About Your Next Move</h1>
+        <p>
+            Have questions about buying, renting or selling a property?
+            Our team is ready to help you find the right solution.
+        </p>
+    </section>
+
+    <!-- Contact Section -->
+    <main class="contact-container">
+
+        <!-- Contact Information -->
+        <section class="contact-info">
+            <h2>Get in Touch</h2>
+
+            <p class="section-description">
+                Reach out to our team for property enquiries,
+                assistance or general questions.
+            </p>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                    <h3>Our Office</h3>
+                    <p>Lucknow, Uttar Pradesh, India</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div>
+                    <h3>Email Us</h3>
+                    <p>hello@homevista.example</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div>
+                    <h3>Call Us</h3>
+                    <p>Contact details will be added soon.</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <div>
+                    <h3>Working Hours</h3>
+                    <p>Monday – Saturday<br>10:00 AM – 6:00 PM</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="contact-form">
+            <h2>Send Us a Message</h2>
+
+            <p class="section-description">
+                Fill out the form below and tell us how we can help.
+            </p>
+
+            <form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="Enter your full name"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Enquiry Type</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select enquiry type</option>
+                            <option value="buy">Buying a Property</option>
+                            <option value="rent">Renting a Property</option>
+                            <option value="sell">Selling a Property</option>
+                            <option value="commercial">Commercial Property</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Tell us how we can help you..."
+                        required></textarea>
+                </div>
+
+                <button type="button" class="submit-button">
+                    Send Message <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+                <p class="contact-note">
+                    Your message will be saved and our team will contact you.
+                </p>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Bottom Section -->
+    <section class="contact-bottom">
+        <i class="fa-solid fa-house"></i>
+        <h2>Ready to Find Your Perfect Property?</h2>
+        <p>Explore our property listings and discover your next home.</p>
+        <a href="buy.html">Explore Properties</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="contact-footer">
+        <p>&copy; 2026 HomeVista. All rights reserved.</p>
+    </footer>
+<script src="js/header.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

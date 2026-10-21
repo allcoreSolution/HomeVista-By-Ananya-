@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Property Details - HomeVista</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+
+        <img src="images/logo.png" alt="HomeVista Logo">
+
+        <span class="home-text">Home</span>
+        <span class="vista-text">Vista</span>
+
+    </div>
+
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="buy.html">Buy</a>
+    <a href="rent.html">Rent</a>
+    <a href="projects.html">Projects</a>
+    <a href="commercial.html">Commercial</a>
+    <a href="agents.html">Agents</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+
+</header>
+
+
+
+<!-- ================= PROPERTY DETAILS ================= -->
+
+<section class="property-details-page">
+
+    <div class="details-container">
+
+
+        <!-- ================= BACK BUTTON ================= -->
+
+        <a href="index.html" class="back-properties">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Properties
+
+        </a>
+
+
+
+        <!-- ================= PROPERTY TOP ================= -->
+
+        <div class="details-top">
+
+            <div>
+
+                <span class="details-tag" id="propertyTag">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    For Sale
+
+                </span>
+
+
+                <h1 id="propertyTitle">
+                    3 BHK Apartment
+                </h1>
+
+
+                <p class="details-location">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <span id="propertyLocation">
+                        Gomti Nagar, Lucknow
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <button class="details-heart">
+
+                <i class="fa-regular fa-heart"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- ================= IMAGE GALLERY ================= -->
+
+        <div class="property-gallery">
+
+
+            <!-- MAIN IMAGE -->
+
+            <div class="main-property-image">
+
+                <img
+                    id="mainPropertyImage"
+                    src=""
+                    alt="Property Image"
+                >
+
+
+                <!-- PREVIOUS -->
+
+                <button
+                    class="gallery-btn gallery-prev"
+                    onclick="previousImage()"
+                >
+
+                    <i class="fa-solid fa-chevron-left"></i>
+
+                </button>
+
+
+                <!-- NEXT -->
+
+                <button
+                    class="gallery-btn gallery-next"
+                    onclick="nextImage()"
+                >
+
+                    <i class="fa-solid fa-chevron-right"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- THUMBNAILS -->
+
+            <div
+                class="property-thumbnails"
+                id="propertyThumbnails"
+            >
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= PROPERTY CONTENT ================= -->
+
+        <div class="details-content">
+
+
+            <!-- ================= LEFT ================= -->
+
+            <div class="details-left">
+
+
+                <!-- PRICE -->
+
+                <h2 id="propertyPrice">
+                    ₹85 Lakh
+                </h2>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <p
+                    class="details-description"
+                    id="propertyDescription"
+                >
+                    Beautiful property with modern interiors,
+                    spacious rooms and excellent connectivity.
+                </p>
+
+
+
+                <!-- ================= PROPERTY FEATURES ================= -->
+
+                <div class="property-features">
+
+
+                    <!-- BEDROOM -->
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-bed"></i>
+
+                        <div>
+
+                            <strong id="propertyBhk">
+                                3 BHK
+                            </strong>
+
+                            <small>
+                                Bedrooms
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- BATHROOM -->
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-bath"></i>
+
+                        <div>
+
+                            <strong id="propertyBath">
+                                3 Baths
+                            </strong>
+
+                            <small>
+                                Bathrooms
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AREA -->
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-ruler-combined"></i>
+
+                        <div>
+
+                            <strong id="propertyArea">
+                                1,450
+                            </strong>
+
+                            <small>
+                                Sq.ft
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PROPERTY TYPE -->
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-couch"></i>
+
+                        <div>
+
+                            <strong id="propertyFurnished">
+                                Furnished
+                            </strong>
+
+                            <small>
+                                Property
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================= AMENITIES ================= -->
+
+                <h2 class="section-title">
+                    Amenities
+                </h2>
+
+
+                <div
+                    class="amenities"
+                    id="propertyAmenities"
+                >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= CONTACT CARD ================= -->
+
+            <div class="contact-card">
+
+
+                <h3>
+                    Interested in this property?
+                </h3>
+
+
+                <p>
+                    Get in touch with the property expert.
+                </p>
+
+
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                >
+
+
+                <input
+                    type="tel"
+                    placeholder="Phone Number"
+                >
+
+
+                <textarea
+                    placeholder="I am interested in this property..."
+                ></textarea>
+
+
+                <button class="contact-btn">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Send Enquiry
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+<script src="js/header.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/properties.js"></script>
+<script src="js/details-api.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/details-enquiry.js"></script>
+
+<script>
+
+
+// ==================================================
+// PROPERTY DATA
+// ==================================================
+
+
+const properties = {
+
+    // ================= PROPERTY 1 =================
+
+    1: {
+
+        title: "3 BHK Apartment",
+
+        location: "Gomti Nagar, Lucknow",
+
+        price: "₹85 Lakh",
+
+        tag: "For Sale",
+
+        bhk: "3 BHK",
+
+        bath: "3 Baths",
+
+        area: "1,450",
+
+        furnished: "Furnished",
+
+        description:
+            "Beautiful 3 BHK apartment located in Gomti Nagar, Lucknow. This property offers modern interiors, spacious rooms and excellent connectivity.",
+
+        images: [
+
+            "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=80"
+
+        ],
+
+        amenities: [
+
+            ["fa-car", "Parking"],
+
+            ["fa-elevator", "Lift"],
+
+            ["fa-shield-halved", "Security"],
+
+            ["fa-dumbbell", "Gym"],
+
+            ["fa-person-swimming", "Swimming Pool"]
+
+        ]
+
+    },
+
+
+    // ================= PROPERTY 2 =================
+
+       2: {
+
+    title: "4 BHK Independent Villa",
+
+    location: "Sector 150, Noida",
+
+    price: "₹1.85 Crore",
+
+    tag: "For Sale",
+
+        bhk: "4 BHK",
+
+        bath: "4 Baths",
+
+        area: "2,300",
+
+        furnished: "Semi Furnished",
+
+        description:
+            "Beautiful 4 BHK independent villa in Sector 150, Noida. Spacious rooms, modern design and excellent connectivity make this property ideal for a family.",
+
+        images: [
+
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80"
+
+        ],
+
+        amenities: [
+
+            ["fa-car", "Parking"],
+
+            ["fa-tree", "Garden"],
+
+            ["fa-shield-halved", "Security"],
+
+            ["fa-wifi", "Wi-Fi"],
+
+            ["fa-couch", "Living Room"]
+
+        ]
+
+    },
+
+
+    // ================= PROPERTY 3 =================
+
+   3: {
+
+    title: "4 BHK Modern House",
+
+    location: "Whitefield, Bangalore",
+
+    price: "₹2.10 Crore",
+
+    tag: "For Sale",
+
+    bhk: "4 BHK",
+
+        bath: "2 Baths",
+
+        area: "1,000",
+
+        furnished: "Fully Furnished",
+
+        description:
+    "Beautiful 4 BHK modern house located in Whitefield, Bangalore. Spacious rooms, modern interiors and excellent connectivity make this property perfect for comfortable family living.",
+
+        images: [
+
+            "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=1200&q=80"
+
+        ],
+
+        amenities: [
+
+            ["fa-wifi", "High Speed Wi-Fi"],
+
+            ["fa-car", "Parking"],
+
+            ["fa-elevator", "Lift"],
+
+            ["fa-shield-halved", "Security"],
+
+            ["fa-mug-hot", "Cafeteria"]
+
+        ]
+
+    },
+
+
+    // ================= PROPERTY 4 =================
+
+    4: {
+
+        title: "2 BHK Apartment",
+
+        location: "Hinjewadi, Pune",
+
+        price: "₹65 Lakh",
+
+        tag: "For Sale",
+
+        bhk: "2 BHK",
+
+        bath: "2 Baths",
+
+        area: "1,200",
+
+        furnished: "Semi Furnished",
+
+        description:
+            "Modern 2 BHK apartment in Hinjewadi, Pune. The property offers comfortable living spaces and convenient access to major IT hubs.",
+
+        images: [
+
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+
+        ],
+
+        amenities: [
+
+            ["fa-car", "Parking"],
+
+            ["fa-elevator", "Lift"],
+
+            ["fa-shield-halved", "Security"],
+
+            ["fa-dumbbell", "Gym"],
+
+            ["fa-tree", "Garden"]
+
+        ]
+
+    }
+
+};
+
+
+
+// ==================================================
+// GET PROPERTY ID FROM URL
+// ==================================================
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const propertyId = urlParams.get("id");
+
+
+
+// ==================================================
+// SELECT PROPERTY
+// ==================================================
+
+const property =
+    (window.LISTINGS && window.LISTINGS[propertyId]) ||
+    properties[propertyId] ||
+    properties[1];
+
+
+
+// ==================================================
+// CURRENT IMAGE
+// ==================================================
+
+let currentImage = 0;
+
+
+
+// ==================================================
+// HTML ELEMENTS
+// ==================================================
+
+const mainImage =
+    document.getElementById("mainPropertyImage");
+
+const thumbnailsContainer =
+    document.getElementById("propertyThumbnails");
+
+
+
+// ==================================================
+// SHOW PROPERTY DETAILS
+// ==================================================
+
+document.getElementById("propertyTitle").textContent =
+    property.title;
+
+
+document.getElementById("propertyLocation").textContent =
+    property.location;
+
+
+document.getElementById("propertyPrice").textContent =
+    property.price;
+
+
+document.getElementById("propertyBhk").textContent =
+    property.bhk;
+
+
+document.getElementById("propertyBath").textContent =
+    property.bath;
+
+
+document.getElementById("propertyArea").textContent =
+    property.area;
+
+
+document.getElementById("propertyFurnished").textContent =
+    property.furnished;
+
+
+document.getElementById("propertyDescription").textContent =
+    property.description;
+
+
+document.getElementById("propertyTag").innerHTML =
+    `<i class="fa-solid fa-house"></i> ${property.tag}`;
+
+
+
+// ==================================================
+// CREATE THUMBNAILS
+// ==================================================
+
+property.images.forEach(function(image, index) {
+
+    const thumbnail =
+        document.createElement("img");
+
+
+    thumbnail.src =
+        image.replace("w=1200", "w=300");
+
+
+    thumbnail.alt =
+        property.title;
+
+
+    thumbnail.classList.add("thumbnail");
+
+
+    if (index === 0) {
+
+        thumbnail.classList.add("active");
+
+    }
+
+
+    thumbnail.addEventListener("click", function() {
+
+        changeImage(index);
+
+    });
+
+
+    thumbnailsContainer.appendChild(thumbnail);
+
+});
+
+
+
+// ==================================================
+// SHOW AMENITIES
+// ==================================================
+
+const amenitiesContainer =
+    document.getElementById("propertyAmenities");
+
+
+property.amenities.forEach(function(amenity) {
+
+    const span =
+        document.createElement("span");
+
+
+    span.innerHTML = `
+
+        <i class="fa-solid ${amenity[0]}"></i>
+
+        ${amenity[1]}
+
+    `;
+
+
+    amenitiesContainer.appendChild(span);
+
+});
+
+
+
+// ==================================================
+// CHANGE IMAGE
+// ==================================================
+
+function changeImage(index) {
+
+    currentImage = index;
+
+
+    mainImage.src =
+        property.images[currentImage];
+
+
+    const thumbnails =
+        document.querySelectorAll(".thumbnail");
+
+
+    thumbnails.forEach(function(thumbnail) {
+
+        thumbnail.classList.remove("active");
+
+    });
+
+
+    thumbnails[currentImage].classList.add("active");
+
+}
+
+
+
+// ==================================================
+// NEXT IMAGE
+// ==================================================
+
+function nextImage() {
+
+    currentImage++;
+
+
+    if (currentImage >= property.images.length) {
+
+        currentImage = 0;
+
+    }
+
+
+    changeImage(currentImage);
+
+}
+
+
+
+// ==================================================
+// PREVIOUS IMAGE
+// ==================================================
+
+function previousImage() {
+
+    currentImage--;
+
+
+    if (currentImage < 0) {
+
+        currentImage =
+            property.images.length - 1;
+
+    }
+
+
+    changeImage(currentImage);
+
+}
+
+
+
+// ==================================================
+// SHOW FIRST IMAGE
+// ==================================================
+
+changeImage(0);
+
+
+</script>
+
+
+</body>
+
+</html>

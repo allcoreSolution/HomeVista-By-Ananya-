@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HomeVista - Find Your Dream Property</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+
+        <img src="images/logo.png" alt="HomeVista Logo">
+
+        <span class="home-text">Home</span>
+        <span class="vista-text">Vista</span>
+
+    </div>
+
+
+   <nav>
+
+    <a href="index.html" class="active">Home</a>
+    <a href="buy.html">Buy</a>
+   <a href="rent.html">Rent</a>
+   <a href="projects.html">Projects</a>
+    <a href="commercial.html">Commercial</a>
+    <a href="agents.html">Agents</a>
+    <a href="blog.html">Blog</a>
+   <a href="contact.html">Contact</a>
+
+</nav>
+
+
+    <div class="nav-right">
+
+        <div class="wishlist-wrap">
+
+    <button class="heart-btn" id="wishlistBtn" type="button">
+        <i class="fa-regular fa-heart"></i>
+        <span class="wishlist-count" id="wishlistCount" hidden>0</span>
+    </button>
+
+    <div class="wishlist-panel" id="wishlistPanel" hidden>
+        <h4>My Wishlist</h4>
+        <div id="wishlistItems"></div>
+    </div>
+
+</div>
+
+    <a href="login.html" class="login-btn" id="loginBtn">Login</a>
+
+<a href="signup.html" class="signup-btn" id="signupBtn">Sign Up</a>
+
+<a href="#" class="signup-btn" id="logoutBtn" hidden>Logout</a>
+
+    </div>
+
+</header>
+
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+
+        <!-- ================= LEFT CONTENT ================= -->
+
+        <div class="hero-left">
+
+
+            <!-- TRUST BADGE -->
+
+            <div class="trust-badge">
+
+                <i class="fa-solid fa-house"></i>
+
+                India's Trusted Property Platform
+
+            </div>
+
+
+
+            <!-- HERO HEADING -->
+
+            <h1>
+
+                Find Your
+
+                <span>
+                    Dream Property
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                Buy, Rent or Invest in verified properties across top locations.
+
+                Your perfect home is just a search away.
+
+            </p>
+
+
+
+            <!-- ================= TABS ================= -->
+
+            <div class="property-tabs">
+
+                <button class="tab active">
+                    Buy
+                </button>
+
+                <button class="tab">
+                    Rent
+                </button>
+
+                <button class="tab">
+                    Commercial
+                </button>
+
+                <button class="tab">
+                    Projects
+                </button>
+
+            </div>
+
+
+
+            <!-- ================= SEARCH BOX ================= -->
+
+            <div class="search-box">
+
+
+                <!-- LOCATION -->
+
+                <div class="search-item">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="Enter location, city or area"
+                    >
+
+                </div>
+
+
+
+                <!-- PROPERTY TYPE -->
+
+                <div class="search-item">
+
+                    <label>
+                        Property Type
+                    </label>
+
+                    <select>
+
+                        <option>
+                            Apartment, Villa, Plot...
+                        </option>
+
+                        <option>
+                            Apartment
+                        </option>
+
+                        <option>
+                            Villa
+                        </option>
+
+                        <option>
+                            Independent House
+                        </option>
+
+                        <option>
+                            Plot
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- BUDGET -->
+
+                <div class="search-item">
+
+                    <label>
+                        Budget
+                    </label>
+
+                    <select>
+
+                        <option>
+                            Min - Max
+                        </option>
+
+                        <option>
+                            ₹10L - ₹30L
+                        </option>
+
+                        <option>
+                            ₹30L - ₹60L
+                        </option>
+
+                        <option>
+                            ₹60L - ₹1Cr
+                        </option>
+
+                        <option>
+                            ₹1Cr+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- BHK -->
+
+                <div class="search-item">
+
+                    <label>
+                        BHK
+                    </label>
+
+                    <select>
+
+                        <option>
+                            Any
+                        </option>
+
+                        <option>
+                            1 BHK
+                        </option>
+
+                        <option>
+                            2 BHK
+                        </option>
+
+                        <option>
+                            3 BHK
+                        </option>
+
+                        <option>
+                            4 BHK
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- SEARCH BUTTON -->
+
+                <button class="search-btn">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    Search
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- ================= POPULAR LOCATIONS ================= -->
+<div class="popular">
+
+    <strong>Popular Locations:</strong>
+
+    <a href="buy.html?location=Lucknow">Lucknow</a>
+    <a href="buy.html?location=Noida">Noida</a>
+    <a href="buy.html?location=Gurgaon">Gurgaon</a>
+    <a href="buy.html?location=Bangalore">Bangalore</a>
+    <a href="buy.html?location=Mumbai">Mumbai</a>
+    <a href="buy.html?location=Pune">Pune</a>
+    <a href="buy.html?location=Hyderabad">Hyderabad</a>
+
+</div>
+           
+        </div>
+
+
+
+        <!-- ================= RIGHT SIDE STATS ================= -->
+
+        <div class="hero-stats">
+
+
+            <!-- CUSTOMER CARD -->
+
+            <div class="customer-card">
+
+
+                <div class="avatars">
+
+                    <span>
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        10K+
+                    </strong>
+
+                    <small>
+                        Happy Customers
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- STATS CARD -->
+
+            <div class="stats-card">
+
+
+                <!-- VERIFIED PROPERTIES -->
+
+                <div class="stat">
+
+                    <span class="stat-icon">
+
+                        <i class="fa-solid fa-building"></i>
+
+                    </span>
+
+
+                    <div>
+
+                        <strong>
+                            5K+
+                        </strong>
+
+                        <small>
+                            Verified Properties
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CITIES -->
+
+                <div class="stat">
+
+                    <span class="stat-icon">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                    </span>
+
+
+                    <div>
+
+                        <strong>
+                            100+
+                        </strong>
+
+                        <small>
+                            Cities & Towns
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- AGENTS -->
+
+                <div class="stat">
+
+                    <span class="stat-icon">
+
+                        <i class="fa-solid fa-city"></i>
+
+                    </span>
+
+
+                    <div>
+
+                        <strong>
+                            500+
+                        </strong>
+
+                        <small>
+                            Trusted Agents
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= PROPERTY CATEGORIES ================= -->
+
+<section class="categories">
+
+    <div class="category-container">
+
+    <a href="buy.html?type=apartment" class="category-card">
+
+        <div class="category-icon"><i class="fa-solid fa-building"></i></div>
+        <p>Apartment</p>
+    </a>
+
+    <a href="buy.html?type=independent-house" class="category-card">
+        <div class="category-icon"><i class="fa-solid fa-house"></i></div>
+        <p>Independent House</p>
+    </a>
+
+    <a href="buy.html?type=villa" class="category-card">
+        <div class="category-icon"><i class="fa-solid fa-house-chimney"></i></div>
+        <p>Villa</p>
+    </a>
+
+    <a href="buy.html?type=commercial" class="category-card">
+        <div class="category-icon"><i class="fa-solid fa-building"></i></div>
+        <p>Commercial</p>
+    </a>
+
+    <a href="buy.html?type=plots" class="category-card">
+        <div class="category-icon"><i class="fa-solid fa-tree"></i></div>
+        <p>Plots & Land</p>
+    </a>
+
+    <a href="buy.html?type=builder-projects" class="category-card">
+        <div class="category-icon"><i class="fa-solid fa-city"></i></div>
+        <p>Builder Projects</p>
+    </a>
+
+    <a href="buy.html?type=pg" class="category-card">
+        <div class="category-icon"><i class="fa-solid fa-bed"></i></div>
+        <p>PG & Co-Living</p>
+    </a>
+
+    <a href="buy.html?type=farm-house" class="category-card">
+        <div class="category-icon"><i class="fa-solid fa-tree"></i></div>
+        <p>Farm House</p>
+    </a>
+
+    <a href="buy.html?type=office" class="category-card">
+        <div class="category-icon"><i class="fa-solid fa-building"></i></div>
+        <p>Office Space</p>
+    </a>
+
+    <a href="buy.html?type=shop" class="category-card">
+        <div class="category-icon"><i class="fa-solid fa-shop"></i></div>
+        <p>Shop & Showroom</p>
+    </a>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= FEATURED PROPERTIES ================= -->
+
+<section class="featured-properties">
+
+
+    <!-- FEATURED HEADER -->
+
+    <div class="featured-header">
+
+
+        <div>
+
+            <span>
+                FEATURED PROPERTIES
+            </span>
+
+
+            <h2>
+                Handpicked Properties for You
+            </h2>
+
+
+            <p>
+                Explore the best residential and commercial properties
+                across top locations.
+            </p>
+
+        </div>
+
+
+
+               <a href="buy.html" class="view-all-btn">
+
+            View All Properties
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+
+    </div>
+
+
+
+    <!-- ================= PROPERTY CONTAINER ================= -->
+
+    <div class="property-container">
+
+
+        <!-- ================= PROPERTY 1 ================= -->
+
+        <a href="property-details.html?id=1" class="property-card">
+
+            <div class="property-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80"
+                    alt="3 BHK Apartment"
+                >
+
+                <span class="property-tag sale">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    For Sale
+
+                </span>
+
+                <button class="favorite-btn">
+
+                    <i class="fa-regular fa-heart"></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="property-info">
+
+                <h3>
+                    3 BHK Apartment
+                </h3>
+
+                <p class="property-location">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Gomti Nagar, Lucknow
+
+                </p>
+
+                <strong class="price">
+
+                    ₹85 Lakh
+
+                </strong>
+
+                <div class="property-details">
+
+                    <span>
+
+                        <i class="fa-solid fa-bed"></i>
+
+                        3 BHK
+
+                    </span>
+
+                    <span>
+
+                        <i class="fa-solid fa-bath"></i>
+
+                        3 Baths
+
+                    </span>
+
+                    <span>
+
+                        <i class="fa-solid fa-ruler-combined"></i>
+
+                        1,450 Sq.ft
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- ================= PROPERTY 2 ================= -->
+
+        <a href="property-details.html?id=2" class="property-card">
+
+            <div class="property-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+                    alt="4 BHK Independent Villa"
+                >
+
+                <span class="property-tag rent">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    For Rent
+
+                </span>
+
+                <button class="favorite-btn">
+
+                    <i class="fa-regular fa-heart"></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="property-info">
+
+                <h3>
+                    4 BHK Independent Villa
+                </h3>
+
+                <p class="property-location">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Sector 150, Noida
+
+                </p>
+
+                <strong class="price">
+
+                    ₹45,000 / month
+
+                </strong>
+
+                <div class="property-details">
+
+                    <span>
+
+                        <i class="fa-solid fa-bed"></i>
+
+                        4 BHK
+
+                    </span>
+
+                    <span>
+
+                        <i class="fa-solid fa-bath"></i>
+
+                        4 Baths
+
+                    </span>
+
+                    <span>
+
+                        <i class="fa-solid fa-ruler-combined"></i>
+
+                        2,300 Sq.ft
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- ================= PROPERTY 3 ================= -->
+
+        <a href="property-details.html?id=3" class="property-card">
+
+            <div class="property-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80"
+                    alt="Office Space"
+                >
+
+                <span class="property-tag commercial">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    Commercial
+
+                </span>
+
+                <button class="favorite-btn">
+
+                    <i class="fa-regular fa-heart"></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="property-info">
+
+                <h3>
+                    Office Space
+                </h3>
+
+                <p class="property-location">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Cyber City, Gurgaon
+
+                </p>
+
+                <strong class="price">
+
+                    ₹1.2 Lakh / month
+
+                </strong>
+
+                <div class="property-details">
+
+                    <span>
+
+                        <i class="fa-solid fa-ruler-combined"></i>
+
+                        1,000 Sq.ft
+
+                    </span>
+
+                    <span>
+
+                        <i class="fa-solid fa-couch"></i>
+
+                        Furnished
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- ================= PROPERTY 4 ================= -->
+
+        <a href="property-details.html?id=4" class="property-card">
+
+            <div class="property-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80"
+                    alt="2 BHK Apartment"
+                >
+
+                <span class="property-tag sale">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    For Sale
+
+                </span>
+
+                <button class="favorite-btn">
+
+                    <i class="fa-regular fa-heart"></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="property-info">
+
+                <h3>
+                    2 BHK Apartment
+                </h3>
+
+                <p class="property-location">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Hinjewadi, Pune
+
+                </p>
+
+                <strong class="price">
+
+                    ₹65 Lakh
+
+                </strong>
+
+                <div class="property-details">
+
+                    <span>
+
+                        <i class="fa-solid fa-bed"></i>
+
+                        2 BHK
+
+                    </span>
+
+                    <span>
+
+                        <i class="fa-solid fa-bath"></i>
+
+                        2 Baths
+
+                    </span>
+
+                    <span>
+
+                        <i class="fa-solid fa-ruler-combined"></i>
+
+                        1,200 Sq.ft
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="js/header.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/properties.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/home-api.js"></script>
+<script src="js/featured-api.js"></script>
+<script src="js/script.js"></script>
+
+
+</body>
+
+</html>

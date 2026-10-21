@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Property Agents | HomeVista</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #172b4d;
+            background: #fff;
+        }
+
+        .agents-hero {
+            padding: 70px 8%;
+            text-align: center;
+            background: linear-gradient(120deg, #eaf2ff, #f8faff);
+        }
+
+        .agents-hero .eyebrow {
+            color: #1261d8;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .agents-hero h1 {
+            margin: 16px 0;
+            font-size: 42px;
+        }
+
+        .agents-hero p {
+            max-width: 650px;
+            margin: 0 auto;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .agents-search {
+            display: flex;
+            gap: 12px;
+            max-width: 850px;
+            margin: 30px auto 0;
+            padding: 12px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 28px rgba(20, 50, 90, .09);
+        }
+
+        .agents-search input,
+        .agents-search select {
+            flex: 1;
+            min-width: 0;
+            padding: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .agents-search button {
+            padding: 14px 22px;
+            border: none;
+            border-radius: 8px;
+            background: #1261d8;
+            color: white;
+            cursor: pointer;
+        }
+
+        .agents-section {
+            padding: 60px 8%;
+        }
+
+        .agents-heading {
+            margin-bottom: 30px;
+        }
+
+        .agents-heading h2 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        .agents-heading p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .agent-card {
+            overflow: hidden;
+            border: 1px solid #e7edf5;
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: 0 5px 20px rgba(20, 40, 80, .05);
+            transition: .25s;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(20, 40, 80, .12);
+        }
+
+        .agent-cover {
+            height: 115px;
+            background: linear-gradient(120deg, #1261d8, #83b6ff);
+        }
+
+        .agent-profile {
+            padding: 0 22px 22px;
+            text-align: center;
+        }
+
+        .agent-photo {
+            width: 105px;
+            height: 105px;
+            margin: -52px auto 15px;
+            position: relative;
+            border: 5px solid white;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #eaf2ff;
+        }
+
+        .agent-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .agent-profile h3 {
+            margin: 0 0 7px;
+            font-size: 20px;
+        }
+
+        .agent-role {
+            margin: 0 0 15px;
+            color: #1261d8;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .agent-location {
+            margin-bottom: 18px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .agent-location i {
+            margin-right: 5px;
+            color: #1261d8;
+        }
+
+        .agent-stats {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            padding: 17px 0;
+            border-top: 1px solid #edf0f5;
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        .agent-stats strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #172b4d;
+            font-size: 18px;
+        }
+
+        .agent-stats span {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .agent-contact {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .agent-contact a {
+            flex: 1;
+            padding: 12px 8px;
+            border: 1px solid #1261d8;
+            border-radius: 8px;
+            color: #1261d8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .agent-contact a.primary {
+            background: #1261d8;
+            color: white;
+        }
+
+        .agent-contact a:hover {
+            opacity: .85;
+        }
+
+        .agents-footer {
+            padding: 25px;
+            background: #f5f8fc;
+            color: #64748b;
+            text-align: center;
+        }
+
+        .agents-footer a {
+            color: #1261d8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 1000px) {
+            .agents-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .agents-section,
+            .agents-hero {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .agents-hero h1 {
+                font-size: 30px;
+            }
+
+            .agents-search {
+                flex-direction: column;
+            }
+
+            .agents-search input,
+            .agents-search select,
+            .agents-search button {
+                width: 100%;
+            }
+
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+      <a href="index.html" class="logo">
+    <img src="images/logo.png" alt="HomeVista Logo">
+    <span class="home-text">Home</span>
+    <span class="vista-text">Vista</span>
+</a>
+
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="buy.html">Buy</a>
+            <a href="rent.html">Rent</a>
+            <a href="projects.html">Projects</a>
+            <a href="commercial.html">Commercial</a>
+            <a href="agents.html" class="active">Agents</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        
+    </header>
+
+    <!-- HERO -->
+    <section class="agents-hero">
+        <div class="eyebrow">Your Property, Our Expertise</div>
+
+        <h1>Meet Our Property Experts</h1>
+
+        <p>
+            Connect with property professionals who can help you
+            explore homes, investments and commercial opportunities.
+        </p>
+
+        <div class="agents-search">
+            <input type="text" placeholder="Search agent or city">
+
+            <select>
+                <option value="">Specialization</option>
+                <option>Residential</option>
+                <option>Commercial</option>
+                <option>Luxury Properties</option>
+            </select>
+
+            <button type="button">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Search
+            </button>
+        </div>
+    </section>
+
+    <!-- AGENTS -->
+    <main class="agents-section">
+
+        <div class="agents-heading">
+            <h2>Featured Property Agents</h2>
+            <p>Meet professionals ready to help with your property search.</p>
+        </div>
+
+        <div class="agents-grid">
+
+            <!-- AGENT 1 -->
+            <article class="agent-card">
+                <div class="agent-cover"></div>
+
+                <div class="agent-profile">
+                    <div class="agent-photo">
+                        <img
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80"
+                            alt="Property agent profile">
+                    </div>
+
+                    <h3>Rahul Sharma</h3>
+                    <p class="agent-role">Residential Property Expert</p>
+
+                    <p class="agent-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Lucknow, Uttar Pradesh
+                    </p>
+
+                    <div class="agent-stats">
+                        <div>
+                            <strong>5+</strong>
+                            <span>Years Experience</span>
+                        </div>
+                        <div>
+                            <strong>80+</strong>
+                            <span>Properties</span>
+                        </div>
+                    </div>
+
+                    <div class="agent-contact">
+                        <a href="login.html">
+                            <i class="fa-regular fa-envelope"></i> Contact
+                        </a>
+                        <a href="buy.html" class="primary">
+                            View Properties
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- AGENT 2 -->
+            <article class="agent-card">
+                <div class="agent-cover"></div>
+
+                <div class="agent-profile">
+                    <div class="agent-photo">
+                        <img
+                            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80"
+                            alt="Property agent profile">
+                    </div>
+
+                    <h3>Priya Verma</h3>
+                    <p class="agent-role">Luxury Property Consultant</p>
+
+                    <p class="agent-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Noida, Uttar Pradesh
+                    </p>
+
+                    <div class="agent-stats">
+                        <div>
+                            <strong>7+</strong>
+                            <span>Years Experience</span>
+                        </div>
+                        <div>
+                            <strong>120+</strong>
+                            <span>Properties</span>
+                        </div>
+                    </div>
+
+                    <div class="agent-contact">
+                        <a href="login.html">
+                            <i class="fa-regular fa-envelope"></i> Contact
+                        </a>
+                        <a href="projects.html" class="primary">
+                            View Projects
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- AGENT 3 -->
+            <article class="agent-card">
+                <div class="agent-cover"></div>
+
+                <div class="agent-profile">
+                    <div class="agent-photo">
+                        <img
+                            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80"
+                            alt="Property agent profile">
+                    </div>
+
+                    <h3>Amit Singh</h3>
+                    <p class="agent-role">Commercial Property Expert</p>
+
+                    <p class="agent-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Gurgaon, Haryana
+                    </p>
+
+                    <div class="agent-stats">
+                        <div>
+                            <strong>6+</strong>
+                            <span>Years Experience</span>
+                        </div>
+                        <div>
+                            <strong>95+</strong>
+                            <span>Properties</span>
+                        </div>
+                    </div>
+
+                    <div class="agent-contact">
+                        <a href="login.html">
+                            <i class="fa-regular fa-envelope"></i> Contact
+                        </a>
+                        <a href="commercial.html" class="primary">
+                            View Properties
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <p style="text-align:center; color:#64748b; font-size:13px; margin-top:30px;">
+            Sample agent profiles for website demonstration.
+        </p>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="agents-footer">
+        <p>
+            © 2026 HomeVista. All rights reserved.
+            | <a href="index.html">Back to Home</a>
+        </p>
+    </footer>
+<script src="js/header.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/agents-api.js"></script>
+</body>
+</html>

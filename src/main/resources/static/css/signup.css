@@ -1,0 +1,631 @@
+/* ================= SIGNUP PAGE ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+}
+
+
+/* ================= MAIN PAGE ================= */
+
+.signup-page {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* ================= LEFT SIDE ================= */
+
+.signup-left {
+    width: 50%;
+    min-height: 100vh;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 55px 70px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            rgba(10, 43, 90, 0.82),
+            rgba(18, 97, 216, 0.78)
+        ),
+        url("../images/hero.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+
+.left-content {
+    max-width: 550px;
+}
+
+
+/* ================= LOGO ================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 90px;
+}
+
+.brand img {
+    width: 45px;
+    height: 45px;
+
+    object-fit: contain;
+
+    margin-right: 8px;
+}
+
+.brand .home-text {
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.brand .vista-text {
+    font-size: 27px;
+    font-weight: 700;
+
+    color: #8ec5ff;
+}
+
+
+/* ================= LEFT HEADING ================= */
+
+.signup-left h1 {
+    font-size: 54px;
+    line-height: 1.12;
+
+    margin-bottom: 25px;
+}
+
+.signup-left h1 span {
+    color: #8ec5ff;
+}
+
+
+.signup-left > .left-content > p {
+    font-size: 17px;
+    line-height: 1.7;
+
+    color: rgba(255, 255, 255, 0.85);
+
+    max-width: 500px;
+
+    margin-bottom: 40px;
+}
+
+
+/* ================= FEATURES ================= */
+
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+}
+
+.feature > i {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    font-size: 20px;
+}
+
+.feature h3 {
+    font-size: 16px;
+
+    margin-bottom: 5px;
+}
+
+.feature p {
+    font-size: 13px;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* ================= LEFT BOTTOM ================= */
+
+.left-bottom {
+    font-size: 14px;
+
+    color: rgba(255, 255, 255, 0.7);
+
+    letter-spacing: 1px;
+}
+
+
+/* ================= RIGHT SIDE ================= */
+
+.signup-right {
+    width: 50%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+}
+
+
+/* ================= SIGNUP CARD ================= */
+
+.signup-card {
+    width: 100%;
+    max-width: 500px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 42px 45px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ================= CARD LOGO ================= */
+
+.card-logo {
+    display: flex;
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 25px;
+}
+
+.card-logo img {
+    width: 38px;
+    height: 38px;
+
+    object-fit: contain;
+
+    margin-right: 7px;
+}
+
+.card-logo .home-text {
+    font-size: 23px;
+    font-weight: 700;
+
+    color: #222;
+}
+
+.card-logo .vista-text {
+    font-size: 23px;
+    font-weight: 700;
+
+    color: #1261d8;
+}
+
+
+/* ================= CARD HEADING ================= */
+
+.signup-card h2 {
+    text-align: center;
+
+    font-size: 30px;
+
+    color: #1b1b1b;
+
+    margin-bottom: 8px;
+}
+
+.welcome-text {
+    text-align: center;
+
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 28px;
+}
+
+
+/* ================= INPUT GROUP ================= */
+
+.input-group {
+    margin-bottom: 17px;
+}
+
+.input-group label {
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #333;
+
+    margin-bottom: 7px;
+}
+
+
+/* ================= INPUT BOX ================= */
+
+.input-box {
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #ddd;
+
+    border-radius: 9px;
+
+    padding: 0 14px;
+
+    transition: 0.3s;
+
+    background: #fff;
+}
+
+.input-box:focus-within {
+    border-color: #1261d8;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 97, 216, 0.08);
+}
+
+.input-box > i {
+    color: #888;
+
+    font-size: 16px;
+
+    width: 25px;
+}
+
+.input-box input {
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 14px;
+
+    color: #333;
+
+    background: transparent;
+}
+
+.input-box input::placeholder {
+    color: #aaa;
+}
+
+
+/* ================= PASSWORD BUTTON ================= */
+
+.password-toggle {
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    color: #888;
+
+    font-size: 16px;
+
+    padding: 5px;
+}
+
+.password-toggle:hover {
+    color: #1261d8;
+}
+
+
+/* ================= TERMS ================= */
+
+.terms {
+    margin: 5px 0 22px;
+}
+
+.terms label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 13px;
+
+    color: #666;
+
+    cursor: pointer;
+}
+
+.terms input {
+    accent-color: #1261d8;
+
+    cursor: pointer;
+}
+
+.terms a {
+    color: #1261d8;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.terms a:hover {
+    text-decoration: underline;
+}
+
+
+/* ================= CREATE BUTTON ================= */
+
+.create-btn {
+    width: 100%;
+
+    height: 50px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #1261d8;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    transition: 0.3s;
+}
+
+.create-btn:hover {
+    background: #0d4fae;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(18, 97, 216, 0.22);
+}
+
+
+/* ================= DIVIDER ================= */
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 25px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #e5e5e5;
+}
+
+.divider span {
+    font-size: 12px;
+
+    color: #999;
+
+    font-weight: 600;
+}
+
+
+/* ================= SOCIAL BUTTONS ================= */
+
+.social-buttons {
+    display: flex;
+
+    gap: 12px;
+}
+
+.social-btn {
+    flex: 1;
+
+    height: 45px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: #444;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition: 0.3s;
+}
+
+.social-btn:hover {
+    border-color: #1261d8;
+
+    color: #1261d8;
+
+    background: #f8fbff;
+}
+
+
+/* ================= LOGIN TEXT ================= */
+
+.login-text {
+    text-align: center;
+
+    margin-top: 25px;
+
+    font-size: 14px;
+
+    color: #777;
+}
+
+.login-text a {
+    color: #1261d8;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    margin-left: 4px;
+}
+
+.login-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .signup-left {
+        width: 45%;
+
+        padding: 40px;
+    }
+
+    .signup-right {
+        width: 55%;
+
+        padding: 25px;
+    }
+
+    .signup-left h1 {
+        font-size: 42px;
+    }
+
+    .signup-card {
+        padding: 35px 30px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .signup-page {
+        display: block;
+    }
+
+    .signup-left {
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 35px 25px;
+    }
+
+    .brand {
+        margin-bottom: 45px;
+    }
+
+    .signup-left h1 {
+        font-size: 38px;
+    }
+
+    .features {
+        display: none;
+    }
+
+    .left-bottom {
+        margin-top: 40px;
+    }
+
+    .signup-right {
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 25px 15px;
+    }
+
+    .signup-card {
+        padding: 30px 22px;
+    }
+
+    .social-buttons {
+        flex-direction: column;
+    }
+}
+
+.commercial-image {
+    position: relative;
+}
+
+.favorite-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.favorite-btn.active,
+.property-heart.active,
+.details-heart.active {
+    background: white;
+}
+
+.favorite-btn.active i,
+.property-heart.active i,
+.details-heart.active i {
+    color: #e11d48;
+}

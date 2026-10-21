@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>New Projects | HomeVista</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #172b4d;
+            background: #ffffff;
+        }
+
+        .projects-hero {
+            padding: 75px 8%;
+            text-align: center;
+            background: linear-gradient(120deg, #eaf2ff, #f8faff);
+        }
+
+        .projects-hero .eyebrow {
+            color: #1261d8;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+        }
+
+        .projects-hero h1 {
+            font-size: 42px;
+            margin: 16px 0;
+        }
+
+        .projects-hero p {
+            max-width: 650px;
+            margin: 0 auto;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .projects-search {
+            max-width: 850px;
+            margin: 30px auto 0;
+            padding: 12px;
+            display: flex;
+            gap: 12px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 28px rgba(20, 50, 90, 0.09);
+        }
+
+        .projects-search input,
+        .projects-search select {
+            flex: 1;
+            min-width: 0;
+            padding: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .projects-search button {
+            border: none;
+            border-radius: 8px;
+            background: #1261d8;
+            color: white;
+            padding: 14px 22px;
+            cursor: pointer;
+        }
+
+        .projects-section {
+            padding: 60px 8%;
+        }
+
+        .projects-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .projects-heading h2 {
+            font-size: 30px;
+            margin: 0 0 10px;
+        }
+
+        .projects-heading p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .project-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .project-filters button {
+            padding: 10px 18px;
+            border: 1px solid #dce5f0;
+            border-radius: 25px;
+            background: white;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .project-filters button.active {
+            background: #1261d8;
+            color: white;
+            border-color: #1261d8;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            border: 1px solid #e7edf5;
+            border-radius: 14px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 5px 20px rgba(20, 40, 80, 0.05);
+            transition: 0.25s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(20, 40, 80, 0.12);
+        }
+
+        .project-image {
+            height: 220px;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-status {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 7px 12px;
+            border-radius: 6px;
+            background: #1261d8;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            font-size: 20px;
+            margin: 0 0 12px;
+        }
+
+        .project-location {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .project-location i {
+            color: #1261d8;
+            margin-right: 6px;
+        }
+
+        .project-price {
+            font-size: 21px;
+            color: #1261d8;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .project-price small {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: normal;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 15px 0;
+            border-top: 1px solid #edf0f5;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .project-meta i {
+            color: #1261d8;
+            margin-right: 4px;
+        }
+
+        .project-details {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #1261d8;
+            border: 1px solid #1261d8;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .project-details:hover {
+            background: #1261d8;
+            color: white;
+        }
+
+        .projects-note {
+            text-align: center;
+            color: #64748b;
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 1000px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .projects-section,
+            .projects-hero {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .projects-hero h1 {
+                font-size: 30px;
+            }
+
+            .projects-search {
+                flex-direction: column;
+            }
+
+            .projects-search input,
+            .projects-search select,
+            .projects-search button {
+                width: 100%;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+  <!-- HEADER -->
+<header>
+
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="HomeVista Logo">
+        <span class="home-text">Home</span>
+        <span class="vista-text">Vista</span>
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="buy.html">Buy</a>
+        <a href="rent.html">Rent</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="commercial.html">Commercial</a>
+        <a href="agents.html">Agents</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+   
+</header>
+
+    <!-- HERO -->
+    <section class="projects-hero">
+        <div class="eyebrow">Discover What's New</div>
+
+        <h1>Explore New Projects</h1>
+
+        <p>
+            Discover thoughtfully designed homes, modern apartments
+            and upcoming residential communities for your next investment.
+        </p>
+
+        <div class="projects-search">
+            <input type="text" placeholder="Search by project or location">
+
+            <select>
+                <option value="">Project Type</option>
+                <option>Residential</option>
+                <option>Commercial</option>
+                <option>Luxury Apartments</option>
+                <option>Villas</option>
+            </select>
+
+            <button type="button">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Search
+            </button>
+        </div>
+    </section>
+
+    <!-- PROJECT LIST -->
+    <main class="projects-section">
+
+        <div class="projects-heading">
+            <div>
+                <h2>Featured Projects</h2>
+                <p>Explore selected properties and developments.</p>
+            </div>
+        </div>
+
+        <div class="project-filters">
+            <button type="button" class="active">All Projects</button>
+            <button type="button">Residential</button>
+            <button type="button">Luxury</button>
+            <button type="button">Ready to Move</button>
+        </div>
+
+        <div class="projects-grid">
+
+            <!-- PROJECT 1 -->
+            <article class="project-card">
+                <div class="project-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+                        alt="Modern residential apartment">
+
+                    <span class="project-status">New Launch</span>
+                </div>
+
+                <div class="project-info">
+                    <h3>Skyline Residences</h3>
+
+                    <p class="project-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Gomti Nagar, Lucknow
+                    </p>
+
+                    <div class="project-price">
+                        ₹75 Lakh <small>onwards</small>
+                    </div>
+
+                    <div class="project-meta">
+                        <span><i class="fa-solid fa-building"></i> Apartments</span>
+                        <span><i class="fa-solid fa-bed"></i> 2–3 BHK</span>
+                    </div>
+
+                    <a href="property-details.html?id=1"
+                       class="project-details">
+                        View Details
+                    </a>
+                </div>
+            </article>
+
+            <!-- PROJECT 2 -->
+            <article class="project-card">
+                <div class="project-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80"
+                        alt="Luxury villa project">
+
+                    <span class="project-status">Premium</span>
+                </div>
+
+                <div class="project-info">
+                    <h3>Green Valley Villas</h3>
+
+                    <p class="project-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Sector 150, Noida
+                    </p>
+
+                    <div class="project-price">
+                        ₹1.50 Crore <small>onwards</small>
+                    </div>
+
+                    <div class="project-meta">
+                        <span><i class="fa-solid fa-house"></i> Villas</span>
+                        <span><i class="fa-solid fa-bed"></i> 3–4 BHK</span>
+                    </div>
+
+                    <a href="property-details.html?id=2"
+                       class="project-details">
+                        View Details
+                    </a>
+                </div>
+            </article>
+
+            <!-- PROJECT 3 -->
+            <article class="project-card">
+                <div class="project-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80"
+                        alt="Contemporary residential development">
+
+                    <span class="project-status">Upcoming</span>
+                </div>
+
+                <div class="project-info">
+                    <h3>Urban Heights</h3>
+
+                    <p class="project-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Whitefield, Bangalore
+                    </p>
+
+                    <div class="project-price">
+                        ₹95 Lakh <small>onwards</small>
+                    </div>
+
+                    <div class="project-meta">
+                        <span><i class="fa-solid fa-building"></i> Apartments</span>
+                        <span><i class="fa-solid fa-bed"></i> 2–4 BHK</span>
+                    </div>
+
+                    <a href="property-details.html?id=3"
+                       class="project-details">
+                        View Details
+                    </a>
+                </div>
+            </article>
+
+        </div>
+
+        <p class="projects-note">
+            Project names, prices and availability shown here are sample
+            website content. Verify actual project details before publishing.
+        </p>
+
+    </main>
+
+    <footer style="text-align:center; padding:25px; background:#f5f8fc; color:#64748b;">
+        <p>
+            © 2026 HomeVista. All rights reserved.
+            | <a href="index.html" style="color:#1261d8; text-decoration:none;">Back to Home</a>
+        </p>
+    </footer>
+    <script src="js/header.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/properties.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/projects-api.js"></script>
+
+</body>
+</html>

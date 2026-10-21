@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up - HomeVista</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Signup CSS -->
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+
+<body>
+
+    <div class="signup-page">
+
+        <!-- LEFT SIDE -->
+        <div class="signup-left">
+
+            <div class="left-content">
+
+                <div class="brand">
+                    <img src="images/logo.png" alt="HomeVista Logo">
+
+                    <span class="home-text">Home</span>
+                    <span class="vista-text">Vista</span>
+                </div>
+
+                <h1>
+                    Find Your<br>
+                    <span>Dream Home</span>
+                </h1>
+
+                <p>
+                    Join HomeVista and discover beautiful homes,
+                    premium properties and the perfect place for
+                    your future.
+                </p>
+
+                <div class="features">
+
+                    <div class="feature">
+                        <i class="fa-solid fa-house"></i>
+                        <div>
+                            <h3>Find Your Home</h3>
+                            <p>Explore thousands of properties.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h3>Best Locations</h3>
+                            <p>Discover properties in top locations.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <h3>Trusted Platform</h3>
+                            <p>Safe and reliable property search.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="left-bottom">
+                Better Homes • Brighter Futures
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="signup-right">
+
+            <div class="signup-card">
+
+                <div class="card-logo">
+                    <img src="images/logo.png" alt="HomeVista Logo">
+
+                    <span class="home-text">Home</span>
+                    <span class="vista-text">Vista</span>
+                </div>
+
+                <h2>Create an account</h2>
+
+                <p class="welcome-text">
+                    Join HomeVista and start your property journey.
+                </p>
+
+
+                <!-- SIGNUP FORM -->
+                <form id="signupForm">
+
+                    <!-- FULL NAME -->
+                    <div class="input-group">
+
+                        <label for="name">Full Name</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-regular fa-user"></i>
+
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Enter your full name"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="input-group">
+
+                        <label for="email">Email Address</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter your email"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PHONE -->
+                    <div class="input-group">
+
+                        <label for="phone">Phone Number</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Enter your phone number"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+                    <div class="input-group">
+
+                        <label for="password">Password</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Create a password"
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="togglePassword"
+                            >
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TERMS -->
+                    <div class="terms">
+
+                        <label>
+
+                            <input type="checkbox" id="terms">
+
+                            <span>
+                                I agree to the
+                                <a href="#">Terms & Conditions</a>
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- SIGN UP BUTTON -->
+                    <button type="submit" class="create-btn">
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                        Create Account
+
+                    </button>
+
+                </form>
+
+
+                <!-- DIVIDER -->
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+
+                <!-- SOCIAL BUTTONS -->
+                <div class="social-buttons">
+
+                    <button class="social-btn">
+                        <i class="fa-brands fa-google"></i>
+                        Continue with Google
+                    </button>
+
+                    <button class="social-btn">
+                        <i class="fa-brands fa-facebook-f"></i>
+                        Continue with Facebook
+                    </button>
+
+                </div>
+
+
+                <!-- LOGIN -->
+                <p class="login-text">
+
+                    Already have an account?
+
+                    <a href="login.html">
+                        Login
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Signup JavaScript -->
+    <script src="js/signup.js"></script>
+
+</body>
+
+</html>
