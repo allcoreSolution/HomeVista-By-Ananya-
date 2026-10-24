@@ -169,8 +169,15 @@
 
         if (!button) return;
 
-        event.preventDefault();
+                event.preventDefault();
         event.stopImmediatePropagation();
+
+        // Login nahi hai to login page par bhejo (login ke baad yahin wapas aayegi)
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            sessionStorage.setItem("afterLogin", window.location.pathname + window.location.search);
+            window.location.href = "login.html";
+            return;
+        }
 
         const data = getData(button);
 
@@ -220,11 +227,18 @@
     // Panel kholo / band karo
     if (wishlistBtn && wishlistPanel) {
 
-        wishlistBtn.addEventListener("click", function (event) {
+          wishlistBtn.addEventListener("click", function (event) {
             event.stopPropagation();
+
+            // Login nahi hai to wishlist panel nahi khulega
+            if (localStorage.getItem("isLoggedIn") !== "true") {
+                sessionStorage.setItem("afterLogin", window.location.pathname + window.location.search);
+                window.location.href = "login.html";
+                return;
+            }
+
             wishlistPanel.hidden = !wishlistPanel.hidden;
         });
-
         document.addEventListener("click", function (event) {
             if (!wishlistPanel.contains(event.target)) {
                 wishlistPanel.hidden = true;

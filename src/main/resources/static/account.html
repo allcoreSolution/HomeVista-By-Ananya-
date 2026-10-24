@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | HomeVista</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #f8fafc; color: #172033; font-family: Arial, sans-serif; }
+        a { text-decoration: none; }
+
+        .acc-hero { padding: 50px 20px; text-align: center; color: #fff; background: linear-gradient(120deg, #102a56, #1769d2); }
+        .acc-hero h1 { margin: 0 0 8px; font-size: 36px; }
+        .acc-hero p { margin: 0; color: #e2eaff; }
+
+        .acc-wrap { max-width: 1050px; margin: -30px auto 50px; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .acc-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 8px 28px rgba(16, 42, 86, 0.1); }
+        .acc-card.wide { grid-column: 1 / -1; }
+        .acc-card h3 { margin: 0 0 16px; font-size: 19px; }
+
+        .acc-card label { display: block; font-size: 13px; font-weight: 600; margin: 12px 0 6px; }
+        .acc-card input { width: 100%; padding: 12px; border: 1px solid #d5dde8; border-radius: 8px; font-size: 14px; }
+        .acc-card input[readonly] { background: #f1f5fb; color: #64748b; }
+        .acc-btn { margin-top: 16px; padding: 12px 22px; background: #1769d2; color: #fff; border: 0; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
+        .acc-btn:hover { background: #0f52b8; }
+        .acc-msg { margin-top: 12px; min-height: 18px; font-weight: 600; font-size: 14px; }
+        .acc-msg.ok { color: #15803d; }
+        .acc-msg.bad { color: #c5221f; }
+
+        .enq-list { list-style: none; margin: 0; padding: 0; }
+        .enq-list li { padding: 14px 0; border-bottom: 1px solid #eef2f7; }
+        .enq-list li:last-child { border-bottom: 0; }
+        .enq-list b { display: block; margin-bottom: 4px; }
+        .enq-list small { color: #64748b; }
+        .enq-list p { margin: 6px 0 0; color: #475569; }
+        .enq-empty { color: #64748b; padding: 10px 0; }
+
+        .acc-footer { text-align: center; padding: 24px; color: #64748b; font-size: 14px; }
+
+        @media (max-width: 800px) { .acc-wrap { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="HomeVista Logo">
+            <span class="home-text">Home</span>
+            <span class="vista-text">Vista</span>
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="buy.html">Buy</a>
+            <a href="rent.html">Rent</a>
+            <a href="projects.html">Projects</a>
+            <a href="commercial.html">Commercial</a>
+            <a href="agents.html">Agents</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section class="acc-hero">
+        <h1>My Account</h1>
+        <p id="accHello">Loading...</p>
+    </section>
+
+    <main class="acc-wrap">
+
+        <div class="acc-card">
+            <h3><i class="fa-solid fa-user" style="color:#1769d2;margin-right:8px"></i>My Profile</h3>
+            <form id="profileForm">
+                <label for="accName">Name</label>
+                <input type="text" id="accName">
+                <label for="accEmail">Email (cannot be changed)</label>
+                <input type="text" id="accEmail" readonly>
+                <label for="accPhone">Phone</label>
+                <input type="text" id="accPhone">
+                <button type="submit" class="acc-btn">Save profile</button>
+                <div class="acc-msg" id="profileMsg"></div>
+            </form>
+        </div>
+
+        <div class="acc-card">
+            <h3><i class="fa-solid fa-lock" style="color:#1769d2;margin-right:8px"></i>Change Password</h3>
+            <form id="passForm" autocomplete="off">
+                <label for="oldPass">Current password</label>
+                <input type="password" id="oldPass" autocomplete="current-password">
+                <label for="newPass">New password (min 6 characters)</label>
+                <input type="password" id="newPass" autocomplete="new-password">
+                <label for="newPass2">Confirm new password</label>
+                <input type="password" id="newPass2" autocomplete="new-password">
+                <button type="submit" class="acc-btn">Change password</button>
+                <div class="acc-msg" id="passMsg"></div>
+            </form>
+        </div>
+
+        <div class="acc-card wide">
+            <h3><i class="fa-solid fa-comments" style="color:#1769d2;margin-right:8px"></i>My Enquiries</h3>
+            <ul class="enq-list" id="enqList"><li class="enq-empty">Loading...</li></ul>
+        </div>
+
+    </main>
+
+    <footer class="acc-footer">&copy; 2026 HomeVista. All rights reserved.</footer>
+
+    <script src="js/header.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/account.js"></script>
+</body>
+</html>

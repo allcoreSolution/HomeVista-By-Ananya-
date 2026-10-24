@@ -1,24 +1,52 @@
 package com.homevista.homevista.service;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 @Service
 public class AdminKeyService {
 
-    private final String adminKey;
+    public static final String SESSION_FLAG = "isAdmin";
 
-    public AdminKeyService(@Value("${homevista.admin-key:}") String adminKey) {
-        this.adminKey = adminKey;
+    private final String adminUsername;
+    private final String adminPassword;
+
+    public AdminKeyService(@Value("${homevista.admin-username:}") String adminUsername,
+                           @Value("${homevista.admin-password:}") String adminPassword) {
+        this.adminUsername = adminUsername;
+        this.adminPassword = adminPassword;
     }
 
-    // Key set na ho ya galat ho, to false
-    public boolean isValid(String key) {
-        if (adminKey == null || adminKey.isBlank() || key == null) return false;
+    // Value set na ho (khali) ya galat ho, to false
+    private boolean same(String expected, String given) {
+        if (expected == null || expected.isBlank() || given == null) return false;
         return MessageDigest.isEqual(
-                adminKey.getBytes(StandardCharsets.UTF_8),
-                key.getBytes(StandardCharsets.UTF_8));
+                expected.getBytes(StandardCharsets.UTF_8),
+                given.getBytes(StandardCharsets.UTF_8));
+    }
+
+    // Admin endpoints sirf admin login session maante hain.
+    // "key" parameter purane controllers ke liye bacha hai, uska ab koi asar nahi.
+    public boolean isValid(String key) {
+        return hasAdminSession();
+    }
+
+    // Username + password sahi hain?
+    public boolean credentialsValid(String username, String password) {
+        boolean u = same(adminUsername, username);
+        boolean p = same(adminPassword, password);
+        return u && p;
+    }
+
+    public boolean hasAdminSession() {
+        var attrs = RequestContextHolder.getRequestAttributes();
+        if (!(attrs instanceof ServletRequestAttributes sra)) return false;
+        HttpSession s = sra.getRequest().getSession(false);
+        return s != null && Boolean.TRUE.equals(s.getAttribute(SESSION_FLAG));
     }
 }

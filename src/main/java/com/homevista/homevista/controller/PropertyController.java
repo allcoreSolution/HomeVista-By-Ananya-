@@ -51,12 +51,29 @@ public class PropertyController {
         return list.isEmpty() ? repository.findTop4ByOrderByIdDesc() : list;
     }
 
+    // GET /api/properties/most-visited  (admin panel ke liye, top 5)
+    @GetMapping("/most-visited")
+    public List<Property> getMostVisited() {
+        return repository.findTop5ByOrderByViewsDesc();
+    }
+
     // GET /api/properties/1
     @GetMapping("/{id}")
     public ResponseEntity<Property> getById(@PathVariable Long id) {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    // POST /api/properties/1/view  (property-details page khulne par views +1)
+    @PostMapping("/{id}/view")
+    public ResponseEntity<?> addView(@PathVariable Long id) {
+        int rows = repository.incrementViews(id);
+        if (rows == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "Property not found"));
+        }
+        return ResponseEntity.ok(Map.of("message", "ok"));
     }
 
     // POST /api/properties  (sirf admin)
@@ -76,8 +93,12 @@ public class PropertyController {
         }
 
         property.setId(null);
+        property.setViews(0L);
         property.setType(property.getType().trim().toLowerCase());
         property.setPropertyType(lower(property.getPropertyType()));
+        if (property.getStatus() == null || property.getStatus().isBlank()) {
+            property.setStatus("Active");
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(property));
     }
 
@@ -104,6 +125,9 @@ public class PropertyController {
             existing.setDescription(updated.getDescription());
             if (updated.getFeatured() != null) {
                 existing.setFeatured(updated.getFeatured());
+            }
+            if (updated.getStatus() != null && !updated.getStatus().isBlank()) {
+                existing.setStatus(updated.getStatus());
             }
             return ResponseEntity.ok((Object) repository.save(existing));
         }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)

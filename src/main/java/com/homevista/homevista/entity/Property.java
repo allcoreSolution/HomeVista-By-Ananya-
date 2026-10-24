@@ -1,8 +1,9 @@
 package com.homevista.homevista.entity;
-
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+
 @Table(name = "properties")
 public class Property {
 
@@ -27,6 +28,20 @@ public class Property {
 
     // Home page ke Featured section ke liye
     private Boolean featured = false;
+
+    // Active ya Pending (admin panel mein dikhta hai)
+    private String status = "Active";
+
+    // Property details page kitni baar khuli (Most Visited ke liye)
+       private Long views = 0L;
+
+    // Property kab bani (purani rows mein null rahega)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    void onCreate() {
+        if (createdAt == null) createdAt = LocalDateTime.now();
+    }
 
     public Property() {}
 
@@ -58,4 +73,14 @@ public class Property {
 
     public Boolean getFeatured() { return featured; }
     public void setFeatured(Boolean featured) { this.featured = featured; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    // Purani rows mein views NULL hoga, isliye null ho to 0 maano
+    public Long getViews() { return views == null ? 0L : views; }
+       public void setViews(Long views) { this.views = views; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

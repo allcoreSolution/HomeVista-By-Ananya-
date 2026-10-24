@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - HomeVista</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/panel.css">
+</head>
+
+<body>
+
+    <!-- ================= LOCK SCREEN ================= -->
+    <div class="gate" id="gate">
+        <form class="gate-card" id="gateForm">
+            <img src="images/logo.png" alt="HomeVista">
+            <h2>Admin Panel</h2>
+                        <p>Sign in to continue.</p>
+            <input type="text" id="gateUser" placeholder="Username" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input type="password" id="gateKey" placeholder="Password" autocomplete="off">
+            <button type="submit">Unlock</button>
+            <div class="gate-msg" id="gateMsg"></div>
+            <a href="index.html">&larr; Back to site</a>
+        </form>
+    </div>
+
+    <!-- ================= APP ================= -->
+    <div class="app" id="app" hidden>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+                       <a href="index.html" class="brand">
+                <div class="brand-row">
+                    <img src="images/logo.png" alt="HomeVista">
+                    <div class="brand-name"><span>Home</span><span class="v">Vista</span></div>
+                </div>
+                <small>Admin Panel</small>
+            </a>
+
+            <nav class="side-nav">
+                <button type="button" class="nav-item active" data-view="dashboard">
+                    <i class="fa-solid fa-house"></i><span>Dashboard</span>
+                </button>
+                <button type="button" class="nav-item" data-view="properties">
+                    <i class="fa-solid fa-house-chimney"></i><span>Properties</span>
+                    <i class="fa-solid fa-chevron-right chev"></i>
+                </button>
+                <button type="button" class="nav-item" data-view="users">
+                    <i class="fa-solid fa-user-group"></i><span>Users</span>
+                </button>
+                <button type="button" class="nav-item" data-view="enquiries">
+                    <i class="fa-solid fa-comments"></i><span>Enquiries</span>
+                </button>
+                <button type="button" class="nav-item" data-view="messages">
+                    <i class="fa-solid fa-envelope"></i><span>Messages</span>
+                </button>
+                <button type="button" class="nav-item" data-view="analytics">
+                    <i class="fa-solid fa-chart-column"></i><span>Analytics</span>
+                </button>
+                <button type="button" class="nav-item" data-view="settings">
+                    <i class="fa-solid fa-gear"></i><span>Settings</span>
+                </button>
+            </nav>
+
+            
+
+            <div class="side-foot">© 2026 HomeVista<br>All rights reserved.</div>
+
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+
+                <button type="button" class="icon-btn" id="menuBtn" aria-label="Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="globalSearch" placeholder="Search properties, users, enquiries..." autocomplete="off">
+                                       <kbd>Ctrl K</kbd>
+                    <div class="search-menu" id="searchMenu" hidden></div>
+                </div>
+
+                <div class="top-right">
+                                        <div class="bell-wrap">
+                        <button type="button" class="icon-btn" id="bellBtn" aria-label="Notifications">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="bell-badge" id="bellBadge" hidden>0</span>
+                        </button>
+                        <div class="bell-menu" id="bellMenu" hidden>
+                            <div class="bell-title">Notifications</div>
+                            <ul id="bellList"></ul>
+                        </div>
+                    </div>
+                    <button type="button" class="profile" id="profileBtn" title="Click to lock the panel">
+                        <span class="avatar">A</span>
+                        <span class="who"><b>Admin</b><small>Super Admin</small></span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <!-- ============ DASHBOARD ============ -->
+                <section class="view" id="view-dashboard">
+
+                    <div class="banner">
+                        <div>
+                            <h1>Welcome back, Admin! 👋</h1>
+                            <p>Here's what's happening with your platform today.</p>
+                        </div>
+                        <div class="date-box">
+                            <i class="fa-regular fa-calendar"></i>
+                            <div>
+                                <b id="dateMain">—</b>
+                                <small id="dateSub">—</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="ico blue"><i class="fa-solid fa-house-chimney"></i></span>
+                            <div><span class="label">Total Properties</span><div class="num" id="statProps">–</div><div class="trend" id="trendProps"></div></div>
+                        </div>
+                        <div class="stat">
+                            <span class="ico green"><i class="fa-solid fa-user"></i></span>
+                            <div><span class="label">Registered Users</span><div class="num" id="statUsers">–</div><div class="trend" id="trendUsers"></div></div>
+                        </div>
+                        <div class="stat">
+                            <span class="ico purple"><i class="fa-solid fa-comments"></i></span>
+                            <div><span class="label">Total Enquiries</span><div class="num" id="statInq">–</div><div class="trend" id="trendInq"></div></div>
+                        </div>
+                        <div class="stat">
+                            <span class="ico orange"><i class="fa-solid fa-envelope"></i></span>
+                           <div><span class="label">Total Messages</span><div class="num" id="statMsg">–</div><div class="trend" id="trendMsg"></div></div>
+                        </div>
+                        <div class="stat">
+                            <span class="ico teal"><i class="fa-solid fa-heart"></i></span>
+                            <div><span class="label">Wishlist Saves</span><div class="num" id="statWish">–</div></div>
+                        </div>
+                    </div>
+
+                                        <div class="row2">
+
+                    <div class="card donut-card">
+                        <div class="card-head">
+                            <h3>Property Distribution by Type</h3>
+                        </div>
+                        <div class="donut-body">
+                            <div class="donut-wrap">
+                                <canvas id="typeChart"></canvas>
+                                <div class="donut-center">
+                                    <small>Total</small>
+                                    <b id="donutTotal">0</b>
+                                    <small>Properties</small>
+                                </div>
+                            </div>
+                                                      <ul class="legend" id="legend"></ul>
+                        </div>
+                    </div>
+
+                    <div class="card quick">
+                        <div class="card-head"><h3>Quick Actions</h3></div>
+                        <button type="button" class="q-btn primary" data-action="add"><i class="fa-solid fa-circle-plus"></i> Add Property</button>
+                        <button type="button" class="q-btn" data-go="users"><i class="fa-solid fa-user-group"></i> Manage Users</button>
+                        <button type="button" class="q-btn" data-go="enquiries"><i class="fa-solid fa-comments"></i> View Enquiries</button>
+                        <button type="button" class="q-btn" data-go="messages"><i class="fa-solid fa-envelope"></i> Check Messages</button>
+                        <button type="button" class="q-btn" data-go="analytics"><i class="fa-solid fa-chart-column"></i> View Analytics</button>
+                        <button type="button" class="q-btn" data-go="settings"><i class="fa-solid fa-gear"></i> Settings</button>
+                    </div>
+
+                    </div>
+
+                    
+                    <div class="card activity-card">
+                        <div class="card-head">
+                            <h3><i class="fa-solid fa-bolt" style="color:#7c3aed;margin-right:8px"></i>Recent Activity</h3>
+                        </div>
+                        <ul class="activity-list" id="activityList">
+                            <li class="activity-empty">Loading...</li>
+                        </ul>
+                    </div>
+
+                    <div class="card visited-card">
+                        <div class="card-head">
+                            <h3><i class="fa-solid fa-eye" style="color:#f59e0b;margin-right:8px"></i>Most Visited Properties</h3>
+                        </div>
+                        <ul class="visited-list" id="mostVisited">
+                            <li class="visited-empty">Loading...</li>
+                        </ul>
+                    </div>
+
+                    <div class="card props-card" id="propsCard">
+                        <div class="card-head">
+                            <h3><i class="fa-solid fa-house-chimney" style="color:#1261d8;margin-right:8px"></i>Properties</h3>
+                            <div class="tools">
+                                <div class="mini-search">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="text" id="propSearch" placeholder="Search properties...">
+                                </div>
+                                <select id="propFilter">
+                                    <option value="">All types</option>
+                                    <option value="buy">Buy</option>
+                                    <option value="rent">Rent</option>
+                                    <option value="commercial">Commercial</option>
+                                </select>
+                                <button type="button" class="btn-primary" id="addPropBtn">
+                                    <i class="fa-solid fa-plus"></i> Add Property
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table class="tbl">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>Price</th>
+                                        <th>Featured</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                                               <tbody id="propRows">
+                                    <tr><td colspan="7" class="empty">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row3">
+
+                        <div class="card mini-card">
+                            <div class="card-head">
+                                <h3><i class="fa-solid fa-comments" style="color:#7c3aed;margin-right:8px"></i>Recent Enquiries</h3>
+                                <button type="button" class="link-btn" data-go="enquiries">View All <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                            <div class="table-wrap">
+                                <table class="tbl small">
+                                    <thead><tr><th>Date</th><th>Name</th><th>Property</th><th>Message</th></tr></thead>
+                                    <tbody id="recentEnq"><tr><td colspan="4" class="empty">Loading...</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card mini-card">
+                            <div class="card-head">
+                                <h3><i class="fa-solid fa-envelope" style="color:#1261d8;margin-right:8px"></i>Recent Contact Messages</h3>
+                                <button type="button" class="link-btn" data-go="messages">View All <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                            <div class="table-wrap">
+                                <table class="tbl small">
+                                    <thead><tr><th>Date</th><th>Name</th><th>Contact</th><th>Subject</th></tr></thead>
+                                    <tbody id="recentMsg"><tr><td colspan="4" class="empty">Loading...</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card mini-card">
+                            <div class="card-head">
+                                <h3><i class="fa-solid fa-user-group" style="color:#16a34a;margin-right:8px"></i>Users</h3>
+                                <button type="button" class="link-btn" data-go="users">View All <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                            <div class="table-wrap">
+                                <table class="tbl small">
+                                    <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+                                    <tbody id="recentUsers"><tr><td colspan="4" class="empty">Loading...</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+                <!-- ============ BAAKI SECTIONS (agle steps mein) ============ -->
+               
+                               <section class="view" id="view-users" hidden>
+                    <div class="card">
+                        <div class="card-head">
+                            <h3>Users</h3>
+                            <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="userSearch" placeholder="Search users..."></div>
+                        </div>
+                        <div class="table-wrap">
+                            <table class="tbl">
+                                <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th></tr></thead>
+                                <tbody id="userRows"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-enquiries" hidden>
+                    <div class="card">
+                        <div class="card-head">
+                            <h3>Enquiries</h3>
+                            <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="enqSearch" placeholder="Search enquiries..."></div>
+                        </div>
+                        <div class="table-wrap">
+                            <table class="tbl">
+                                <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Property</th><th>Message</th></tr></thead>
+                                <tbody id="enqRows"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-messages" hidden>
+                    <div class="card">
+                        <div class="card-head">
+                            <h3>Contact Messages</h3>
+                            <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="msgSearch" placeholder="Search messages..."></div>
+                        </div>
+                        <div class="table-wrap">
+                            <table class="tbl">
+                                <thead><tr><th>Date</th><th>Name</th><th>Contact</th><th>Subject</th><th>Message</th></tr></thead>
+                                <tbody id="msgRows"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <section class="view" id="view-analytics" hidden>
+    <div class="ana-grid">
+        <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-heart" style="color:#0d9488;margin-right:8px"></i>Most Wishlisted</h3></div>
+            <div class="ana-empty" id="anaWishEmpty" hidden>No wishlist saves yet.</div>
+            <div class="chart-box"><canvas id="anaWish"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-eye" style="color:#f59e0b;margin-right:8px"></i>Most Visited</h3></div>
+            <div class="ana-empty" id="anaVisitEmpty" hidden>No visits yet.</div>
+            <div class="chart-box"><canvas id="anaVisit"></canvas></div>
+        </div>
+        <div class="card ana-wide">
+            <div class="card-head"><h3><i class="fa-solid fa-chart-column" style="color:#1261d8;margin-right:8px"></i>This Month vs Last Month</h3></div>
+            <div class="chart-box"><canvas id="anaTrend"></canvas></div>
+        </div>
+    </div>
+</section>
+                <section class="view" id="view-settings" hidden>
+    <div class="set-grid">
+
+        <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-lock" style="color:#1261d8;margin-right:8px"></i>Panel Access</h3></div>
+            <p class="set-text">Panel ko abhi lock karo. Dobara kholne ke liye admin key daalni padegi.</p>
+            <button type="button" class="btn-primary" id="setLockBtn"><i class="fa-solid fa-lock"></i> Lock panel now</button>
+        </div>
+
+        <div class="card">
+            <div class="card-head"><h3><i class="fa-regular fa-bell" style="color:#7c3aed;margin-right:8px"></i>Notifications</h3></div>
+            <p class="set-text">Bell ke saare events dobara "naye" dikhane ke liye reset karo.</p>
+            <button type="button" class="btn-ghost" id="setBellBtn">Reset notifications</button>
+        </div>
+
+        <div class="card set-wide">
+            <div class="card-head"><h3><i class="fa-solid fa-shield-halved" style="color:#f59e0b;margin-right:8px"></i>Security Checklist</h3></div>
+            <ul class="set-list">
+                               <li>Deploy se pehle <b>admin username aur password</b> badlo (<code>local.properties</code> mein).</li>
+                <li>Deploy se pehle <b>database password</b> badlo.</li>
+                <li>Test users, test enquiries aur test messages hata do.</li>
+                <li>Admin key kisi ko mat bhejo, aur chat mein paste mat karo.</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+            </main>
+
+        </div>
+
+    </div>
+        <!-- ================= ADD / EDIT POPUP ================= -->
+    <div class="modal" id="propModal" hidden>
+        <form class="modal-card" id="propForm">
+
+            <div class="modal-head">
+                <h3 id="propModalTitle">Add Property</h3>
+                <button type="button" class="icon-btn" id="propModalClose" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="full">
+                    <label for="fTitle">Title</label>
+                    <input type="text" id="fTitle" placeholder="3 BHK Apartment">
+                </div>
+
+                <div>
+                    <label for="fLocation">Location</label>
+                    <input type="text" id="fLocation" placeholder="Gomti Nagar, Lucknow">
+                </div>
+
+                <div>
+                    <label for="fType">Type</label>
+                    <select id="fType">
+                        <option value="buy">Buy</option>
+                        <option value="rent">Rent</option>
+                        <option value="commercial">Commercial</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="fPrice">Price (₹, rent = per month)</label>
+                    <input type="number" id="fPrice" min="0" placeholder="8500000">
+                </div>
+
+                <div>
+                    <label for="fStatus">Status</label>
+                    <select id="fStatus">
+                        <option value="Active">Active</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+
+                <div class="full">
+                    <label for="fImage">Image URL</label>
+                    <input type="text" id="fImage" placeholder="https://...">
+                </div>
+
+                <div>
+                    <label for="fBhk">BHK / Type</label>
+                    <input type="text" id="fBhk" placeholder="3 BHK">
+                </div>
+
+                <div>
+                    <label for="fBath">Baths</label>
+                    <input type="text" id="fBath" placeholder="3 Baths">
+                </div>
+
+                <div>
+                    <label for="fArea">Area (sq.ft)</label>
+                    <input type="text" id="fArea" placeholder="1,450">
+                </div>
+
+                <div>
+                    <label for="fFurnished">Furnishing</label>
+                    <input type="text" id="fFurnished" placeholder="Furnished">
+                </div>
+
+                <div class="full">
+                    <label for="fDesc">Description</label>
+                    <textarea id="fDesc"></textarea>
+                </div>
+
+                <div class="full">
+                    <label class="check-row">
+                        <input type="checkbox" id="fFeatured"> Show on the home page (Featured)
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="modal-msg" id="propMsg"></div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-ghost" id="propCancel">Cancel</button>
+                <button type="submit" class="btn-primary">Save</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="toast" id="toast" hidden></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="js/panel.js"></script>
+</body>
+
+</html>

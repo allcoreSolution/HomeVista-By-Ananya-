@@ -7,4 +7,6 @@ import java.util.List;
 public interface PropertyInquiryRepository extends JpaRepository<PropertyInquiry, Long> {
 
     List<PropertyInquiry> findAllByOrderByCreatedAtDesc();
+
+    List<PropertyInquiry> findByUserEmailOrderByCreatedAtDesc(String userEmail);
 }

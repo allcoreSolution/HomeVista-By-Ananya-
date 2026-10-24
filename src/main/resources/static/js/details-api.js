@@ -45,9 +45,21 @@
             area: p.area || "—",
             furnished: p.furnished || "—",
             description: p.description || (p.title + " in " + p.location + "."),
-            images: [p.imageUrl],
+                       images: [p.imageUrl],
             amenities: []
         };
+
+        // Views +1 (ek tab/session mein ek property ka count sirf ek baar)
+        try {
+            const key = "viewed_" + id;
+            if (!sessionStorage.getItem(key)) {
+                sessionStorage.setItem(key, "1");
+                fetch("/api/properties/" + encodeURIComponent(id) + "/view", {
+                    method: "POST",
+                    keepalive: true
+                }).catch(function () {});
+            }
+        } catch (e) {}
     } catch (err) {
         console.error("Property API se nahi aayi:", err);
     }

@@ -5,10 +5,12 @@ const logoutBtn = document.getElementById("logoutBtn");
 const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
 if (isLoggedIn && loginBtn && signupBtn && logoutBtn) {
-    loginBtn.hidden = true;
+        loginBtn.hidden = true;
     signupBtn.hidden = true;
     logoutBtn.hidden = false;
 
+    const accountBtn = document.getElementById("accountBtn");
+    if (accountBtn) accountBtn.hidden = false;
     // Header mein user ka pehla naam dikhana
     const userName = localStorage.getItem("userName");
     if (userName) {

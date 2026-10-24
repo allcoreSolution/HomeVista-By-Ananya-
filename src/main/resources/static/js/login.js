@@ -34,7 +34,12 @@ loginForm.addEventListener("submit", function(event) {
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("userName", result.data.name);
             localStorage.setItem("userEmail", result.data.email);
-            window.location.href = "index.html";
+                      // Agar wishlist ke liye login par bheja gaya tha, to wahin wapas bhejo
+            const back = sessionStorage.getItem("afterLogin");
+            sessionStorage.removeItem("afterLogin");
+
+            const safe = back && back.startsWith("/") && !back.startsWith("//") && !back.startsWith("/\\");
+            window.location.href = safe ? back : "index.html";
         })
         .catch(function () {
             alert("Server se connect nahi ho paya.");

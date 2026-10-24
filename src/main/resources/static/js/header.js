@@ -23,7 +23,8 @@
         </div>
 
         <a href="login.html" class="login-btn" id="loginBtn">Login</a>
-        <a href="signup.html" class="signup-btn" id="signupBtn">Sign Up</a>
+               <a href="signup.html" class="signup-btn" id="signupBtn">Sign Up</a>
+        <a href="account.html" class="login-btn" id="accountBtn" hidden>My Account</a>
         <a href="#" class="signup-btn" id="logoutBtn" hidden>Logout</a>
     `;
 
