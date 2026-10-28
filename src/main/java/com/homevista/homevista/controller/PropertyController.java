@@ -3,12 +3,14 @@ package com.homevista.homevista.controller;
 import com.homevista.homevista.entity.Property;
 import com.homevista.homevista.repository.PropertyRepository;
 import com.homevista.homevista.service.AdminKeyService;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 @RestController
 @RequestMapping("/api/properties")
 public class PropertyController {
@@ -26,10 +28,6 @@ public class PropertyController {
                 .body(Map.of("message", "Not allowed. Admin key is missing or wrong."));
     }
 
-    private String clean(String value) {
-        return (value == null || value.isBlank()) ? null : value.trim();
-    }
-
     private String lower(String value) {
         return (value == null || value.isBlank()) ? null : value.trim().toLowerCase();
     }
@@ -41,7 +39,21 @@ public class PropertyController {
                                  @RequestParam(required = false) String propertyType,
                                  @RequestParam(required = false) Double minPrice,
                                  @RequestParam(required = false) Double maxPrice) {
-        return repository.search(clean(type), clean(location), clean(propertyType), minPrice, maxPrice);
+               final String t = lower(type);
+        final String loc = lower(location);
+        final String pt = lower(propertyType);
+
+        Specification<Property> spec = (root, query, cb) -> {
+            List<Predicate> parts = new ArrayList<>();
+            if (t != null) parts.add(cb.equal(cb.lower(root.get("type")), t));
+            if (loc != null) parts.add(cb.like(cb.lower(root.get("location")), "%" + loc + "%"));
+            if (pt != null) parts.add(cb.equal(cb.lower(root.get("propertyType")), pt));
+            if (minPrice != null) parts.add(cb.greaterThanOrEqualTo(root.<Double>get("price"), minPrice));
+            if (maxPrice != null) parts.add(cb.lessThanOrEqualTo(root.<Double>get("price"), maxPrice));
+            return cb.and(parts.toArray(new Predicate[0]));
+        };
+
+        return repository.findAll(spec);
     }
 
     // GET /api/properties/featured  (home page ke liye)

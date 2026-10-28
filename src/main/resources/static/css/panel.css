@@ -4,16 +4,89 @@ a { text-decoration: none; color: inherit; }
 button { font-family: inherit; cursor: pointer; }
 
 /* ============ LOCK SCREEN ============ */
-.gate { position: fixed; inset: 0; background: linear-gradient(135deg, #0b1d3a, #12315f); display: flex; align-items: center; justify-content: center; z-index: 50; padding: 16px; }
+.gate { position: fixed; inset: 0; z-index: 50; overflow: hidden; display: grid; grid-template-columns: 1fr minmax(320px, 620px); align-items: center; column-gap: 40px; padding: 0 9vw 0 0;
+    background: linear-gradient(120deg, #b4d1f5 0%, #d3e4fa 30%, #eef4fe 60%, #f7faff 100%); }
 .gate[hidden] { display: none; }
-.gate-card { background: #fff; border-radius: 18px; padding: 32px; width: 100%; max-width: 380px; text-align: center; }
-.gate-card img { height: 44px; margin-bottom: 10px; }
-.gate-card h2 { margin-bottom: 4px; }
-.gate-card p { color: #64748b; margin-bottom: 16px; }
-.gate-card input { width: 100%; padding: 13px; border: 1px solid #d5dde8; border-radius: 10px; font-size: 15px; margin-bottom: 12px; }
-.gate-card button { width: 100%; padding: 13px; background: #1261d8; color: #fff; border: 0; border-radius: 10px; font-weight: 700; font-size: 15px; }
-.gate-msg { margin-top: 10px; min-height: 20px; color: #c5221f; font-weight: 600; }
-.gate-card a { display: inline-block; margin-top: 12px; color: #1261d8; font-weight: 600; }
+.gate::before { content: ""; position: absolute; top: -250px; right: -190px; width: 420px; height: 420px; border-radius: 50%; background: linear-gradient(135deg, #2f6fe4, #7db3f7); }
+.gate::after { content: ""; position: absolute; bottom: -420px; right: -260px; width: 640px; height: 640px; border-radius: 50%; background: rgba(120, 170, 245, 0.28); }
+
+.gate-brand { position: absolute; top: 6vh; left: 6vw; z-index: 2; display: flex; align-items: center; gap: 12px; }
+.gate-brand img { height: 64px; width: auto; }
+.gate-brand-name { font-size: 46px; font-weight: 800; line-height: 1; color: #0b1d3a; }
+.gate-brand-name .v { color: #1261d8; }
+.gate-brand small { display: block; margin-top: 8px; letter-spacing: 5px; font-size: 13px; color: #475569; }
+
+.gate-left { position: relative; z-index: 2; padding-left: 9vw; }
+.gate-hero { transform: translateY(-14vh); }
+.gate-kicker { display: flex; align-items: center; gap: 16px; letter-spacing: 6px; font-size: 15px; color: #475569; margin-bottom: 14px; }
+.gate-kicker span { width: 44px; height: 2px; background: #1261d8; }
+.gate-hero h1 { font-size: 56px; line-height: 1.1; color: #0b1d3a; margin-bottom: 16px; }
+.gate-hero h1 em { font-style: normal; color: #1261d8; }
+.gate-hero p { color: #475569; font-size: 18px; line-height: 1.6; }
+
+.gate-house { position: absolute; left: 0; bottom: 9vh; width: min(50vw, 780px); aspect-ratio: 765 / 385; z-index: 1;
+        background: url("../images/hero-bg.jpg") left bottom / contain no-repeat;
+    filter: blur(2px);
+    -webkit-mask-image: linear-gradient(to right, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 18%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 18%);
+    mask-composite: intersect; }
+.gate-fade { position: absolute; left: 0; bottom: 0; width: min(58vw, 900px); height: 24vh; z-index: 1; pointer-events: none;
+    background: linear-gradient(to top, #1b3a8f 0%, rgba(27, 58, 143, 0.82) 45%, rgba(27, 58, 143, 0) 100%); }
+
+.gate-stats { position: absolute; left: 5vw; bottom: 4vh; z-index: 2; display: flex; color: #fff; }
+.gate-stat { display: flex; align-items: center; gap: 14px; padding: 0 28px; border-left: 1px solid rgba(255, 255, 255, 0.25); }
+.gate-stat:first-child { padding-left: 0; border-left: 0; }
+.gs-ico { width: 48px; height: 48px; border-radius: 50%; background: #fff; color: #1b3a8f; display: flex; align-items: center; justify-content: center; font-size: 18px; flex: none; }
+.gs-num { font-size: 26px; font-weight: 700; line-height: 1.1; }
+.gs-label { font-size: 14px; opacity: 0.9; }
+
+.gate-card { position: relative; z-index: 3; background: #fff; border-radius: 22px; padding: 44px 50px 34px; width: 100%; text-align: center; box-shadow: 0 24px 70px rgba(30, 70, 150, 0.18); }
+.gate-icon { width: 100px; height: 100px; margin: 0 auto 18px; border-radius: 50%; background: #e8f0ff; color: #1261d8; font-size: 40px; display: flex; align-items: center; justify-content: center; }
+.gate-card h2 { font-size: 32px; color: #0b1d3a; margin-bottom: 10px; }
+.gate-card > p { color: #475569; font-size: 17px; margin-bottom: 30px; }
+
+.g-field { position: relative; margin-bottom: 20px; }
+.g-field > i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #64748b; font-size: 18px; }
+.g-field input { width: 100%; padding: 22px 54px 22px 58px; border: 1px solid #dbe6f5; border-radius: 12px; font-size: 17px; background: #fff; color: #0f2547; }
+.g-field input:focus { outline: none; border-color: #1261d8; box-shadow: 0 0 0 3px rgba(18, 97, 216, 0.15); }
+.g-field input.invalid { border-color: #c5221f; box-shadow: 0 0 0 3px rgba(197, 34, 31, 0.12); }
+.g-eye { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border: 0; background: transparent; color: #64748b; font-size: 18px; border-radius: 8px; }
+.g-eye:hover { background: #f1f5fb; }
+
+.g-row { display: flex; justify-content: space-between; align-items: center; margin: 4px 0 24px; }
+.g-remember { display: flex; align-items: center; gap: 10px; color: #334155; font-size: 16px; cursor: pointer; }
+.g-remember input { width: 20px; height: 20px; accent-color: #1261d8; cursor: pointer; }
+.g-forgot { background: none; border: 0; color: #1261d8; font-size: 16px; font-weight: 500; }
+.g-forgot:hover { text-decoration: underline; }
+.g-help { margin: -8px 0 20px; padding: 12px 14px; background: #eef4ff; border-radius: 10px; color: #334155; font-size: 13px; line-height: 1.6; text-align: left; }
+.g-help[hidden] { display: none; }
+.g-help code { background: #fff; padding: 1px 6px; border-radius: 4px; }
+
+.g-submit { width: 100%; padding: 22px; background: linear-gradient(90deg, #1261d8, #2b7bff); color: #fff; border: 0; border-radius: 12px; font-weight: 700; font-size: 19px; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 10px 24px rgba(18, 97, 216, 0.28); }
+.g-submit:hover { filter: brightness(1.06); }
+
+.gate-msg { margin-top: 14px; min-height: 22px; color: #c5221f; font-weight: 600; }
+.g-back { margin-top: 18px; display: flex; align-items: center; gap: 16px; }
+.g-back::before, .g-back::after { content: ""; flex: 1; height: 1px; background: #e2e8f0; }
+.g-back a { color: #1261d8; font-weight: 600; font-size: 16px; }
+
+@media (max-height: 900px) { .gate-card { zoom: 0.88; } .gate-hero h1 { font-size: 46px; } }
+@media (max-height: 780px) { .gate-card { zoom: 0.76; } .gate-hero h1 { font-size: 40px; } }
+@media (max-height: 680px) { .gate-card { zoom: 0.66; } .gate-hero h1 { font-size: 34px; } }
+@media (max-width: 1100px) {
+    .gate-hero h1 { font-size: 42px; }
+    .gate-stat { padding: 0 16px; }
+}
+@media (max-width: 900px) {
+        .gate { display: block; padding: 20px 16px; overflow-y: auto; }
+    .gate::before, .gate::after { display: none; }
+    .gate-brand { position: static; margin-bottom: 20px; }
+    .gate-brand img { height: 48px; }
+    .gate-brand-name { font-size: 32px; }
+    .gate-left, .gate-house, .gate-fade, .gate-stats { display: none; }
+    .gate-card { padding: 30px 22px; }
+}
 
 /* ============ SIDEBAR ============ */
 .app[hidden] { display: none; }

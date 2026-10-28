@@ -54,7 +54,11 @@ public class AdminAuthController {
 
         HttpSession session = request.getSession(true);
         request.changeSessionId();
-        session.setAttribute(AdminKeyService.SESSION_FLAG, Boolean.TRUE);
+               session.setAttribute(AdminKeyService.SESSION_FLAG, Boolean.TRUE);
+
+        // Remember me: tick ho to 7 din, nahi to 30 minute idle rehne par logout
+        boolean remember = "true".equals(req.get("remember"));
+        session.setMaxInactiveInterval(remember ? 7 * 24 * 60 * 60 : 30 * 60);
 
         return ResponseEntity.ok(Map.of("message", "Login successful"));
     }

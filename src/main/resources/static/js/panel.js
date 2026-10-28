@@ -92,7 +92,32 @@
         gateMsg.textContent = "";
     }
     gateKey.addEventListener("input", clearInvalid);
-    gateUser.addEventListener("input", clearInvalid);
+        gateUser.addEventListener("input", clearInvalid);
+
+      // Forgot password: sirf batata hai ki password kahan badalna hai
+    document.getElementById("gateForgot").addEventListener("click", function () {
+        const help = document.getElementById("gateHelp");
+        help.hidden = !help.hidden;
+    });
+
+    // Login page ki stats bar: asli ginti
+    (async function () {
+        try {
+            const res = await fetch("/api/public/summary");
+            if (!res.ok) return;
+            const s = await res.json();
+            setText("gsProps", Number(s.properties || 0).toLocaleString("en-IN"));
+            setText("gsUsers", Number(s.users || 0).toLocaleString("en-IN"));
+            setText("gsCities", Number(s.cities || 0).toLocaleString("en-IN"));
+        } catch (err) { }
+    })();
+
+    // Aankh par click: password dikhao / chhupao
+    document.getElementById("gateEye").addEventListener("click", function () {
+        const show = gateKey.type === "password";
+        gateKey.type = show ? "text" : "password";
+              this.querySelector("i").className = show ? "fa-regular fa-eye" : "fa-regular fa-eye-slash"; 
+    });
 
     function fetchStats() {
         return fetch("/api/admin/stats", { credentials: "same-origin" });
@@ -185,7 +210,11 @@
                 method: "POST",
                 credentials: "same-origin",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username: gateUser.value.trim(), password: gateKey.value })
+                               body: JSON.stringify({
+                    username: gateUser.value.trim(),
+                    password: gateKey.value,
+                    remember: document.getElementById("gateRemember").checked ? "true" : "false"
+                })
             });
         } catch (err) {
             showGate("Could not reach the server.");

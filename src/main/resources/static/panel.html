@@ -14,18 +14,79 @@
 <body>
 
     <!-- ================= LOCK SCREEN ================= -->
-    <div class="gate" id="gate">
-        <form class="gate-card" id="gateForm">
+        <div class="gate" id="gate">
+
+        <div class="gate-brand">
             <img src="images/logo.png" alt="HomeVista">
-            <h2>Admin Panel</h2>
-                        <p>Sign in to continue.</p>
-            <input type="text" id="gateUser" placeholder="Username" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-            <input type="password" id="gateKey" placeholder="Password" autocomplete="off">
-            <button type="submit">Unlock</button>
+            <div>
+                <div class="gate-brand-name"><span>Home</span><span class="v">Vista</span></div>
+                <small>Find Your Dream Home</small>
+            </div>
+        </div>
+
+        <div class="gate-left">
+            <div class="gate-hero">
+                <div class="gate-kicker"><span></span>ADMIN PANEL</div>
+                <h1>Welcome Back,<br><em>Admin</em></h1>
+                <p>Manage properties, users and your<br>real estate platform all in one place.</p>
+            </div>
+        </div>
+
+        <div class="gate-house"></div>
+        <div class="gate-fade"></div>
+
+        <div class="gate-stats">
+            <div class="gate-stat">
+                <span class="gs-ico"><i class="fa-solid fa-house"></i></span>
+                <div><div class="gs-num" id="gsProps">–</div><div class="gs-label">Properties Listed</div></div>
+            </div>
+            <div class="gate-stat">
+                <span class="gs-ico"><i class="fa-solid fa-user-group"></i></span>
+                <div><div class="gs-num" id="gsUsers">–</div><div class="gs-label">Registered Users</div></div>
+            </div>
+            <div class="gate-stat">
+                <span class="gs-ico"><i class="fa-solid fa-shield-halved"></i></span>
+                <div><div class="gs-num" id="gsCities">–</div><div class="gs-label">Cities &amp; Towns</div></div>
+            </div>
+        </div>
+
+        <form class="gate-card" id="gateForm">
+            <div class="gate-icon"><i class="fa-solid fa-house-chimney"></i></div>
+            <h2>Admin Login</h2>
+            <p>Enter your credentials to access the panel</p>
+
+            <div class="g-field">
+                <i class="fa-regular fa-user"></i>
+                <input type="text" id="gateUser" placeholder="Username" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+            </div>
+
+            <div class="g-field">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="gateKey" placeholder="Password" autocomplete="new-password">
+                               <button type="button" class="g-eye" id="gateEye" aria-label="Show password">
+                    <i class="fa-regular fa-eye-slash"></i>
+                </button>
+            </div>
+
+            <div class="g-row">
+                <label class="g-remember"><input type="checkbox" id="gateRemember" checked> Remember me</label>
+                <button type="button" class="g-forgot" id="gateForgot">Forgot password?</button>
+            </div>
+
+            <div class="g-help" id="gateHelp" hidden>
+                The admin password is set on the server. To change it, edit
+                <b>homevista.admin-password</b> in <code>local.properties</code>
+                (or in your hosting environment variables) and restart the app.
+            </div>
+
+            <button type="submit" class="g-submit"><i class="fa-solid fa-right-to-bracket"></i> Unlock</button>
             <div class="gate-msg" id="gateMsg"></div>
-            <a href="index.html">&larr; Back to site</a>
+
+            <div class="g-back"><a href="index.html">&larr; Back to site</a></div>
         </form>
+
     </div>
+
 
     <!-- ================= APP ================= -->
     <div class="app" id="app" hidden>
@@ -354,7 +415,7 @@
 
         <div class="card">
             <div class="card-head"><h3><i class="fa-solid fa-lock" style="color:#1261d8;margin-right:8px"></i>Panel Access</h3></div>
-            <p class="set-text">Panel ko abhi lock karo. Dobara kholne ke liye admin key daalni padegi.</p>
+            <p class="set-text">Panel ko abhi lock karo. Dobara kholne ke liye username aur password daalna padega.</p>
             <button type="button" class="btn-primary" id="setLockBtn"><i class="fa-solid fa-lock"></i> Lock panel now</button>
         </div>
 
@@ -370,7 +431,7 @@
                                <li>Deploy se pehle <b>admin username aur password</b> badlo (<code>local.properties</code> mein).</li>
                 <li>Deploy se pehle <b>database password</b> badlo.</li>
                 <li>Test users, test enquiries aur test messages hata do.</li>
-                <li>Admin key kisi ko mat bhejo, aur chat mein paste mat karo.</li>
+                <li>Admin password kisi ko mat bhejo, aur chat ya screenshot mein mat dikhao.</li>
             </ul>
         </div>
 
