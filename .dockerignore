@@ -1,0 +1,10 @@
+target/
+local.properties
+.git/
+.gitignore
+*.zip
+HELP.md
+mvnw
+mvnw.cmd
+.idea/
+.vscode/
