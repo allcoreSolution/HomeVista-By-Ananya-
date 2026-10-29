@@ -108,7 +108,6 @@
                 </button>
                 <button type="button" class="nav-item" data-view="properties">
                     <i class="fa-solid fa-house-chimney"></i><span>Properties</span>
-                    <i class="fa-solid fa-chevron-right chev"></i>
                 </button>
                 <button type="button" class="nav-item" data-view="users">
                     <i class="fa-solid fa-user-group"></i><span>Users</span>
@@ -129,7 +128,12 @@
 
             
 
-            <div class="side-foot">© 2026 HomeVista<br>All rights reserved.</div>
+                        <div class="side-foot">
+                <span>© 2026 HomeVista<br>All rights reserved.</span>
+                <button type="button" class="side-collapse" id="sideCollapse" aria-label="Collapse sidebar">
+                    <i class="fa-solid fa-angles-left"></i>
+                </button>
+            </div>
 
         </aside>
 
@@ -139,7 +143,7 @@
             <!-- TOP BAR -->
             <header class="topbar">
 
-                <button type="button" class="icon-btn" id="menuBtn" aria-label="Menu">
+            <button type="button" class="icon-btn only-mobile" id="menuBtn" aria-label="Menu">
                     <i class="fa-solid fa-bars"></i>
                 </button>
 
@@ -161,6 +165,7 @@
                             <ul id="bellList"></ul>
                         </div>
                     </div>
+                                        <span class="top-divider"></span>
                     <button type="button" class="profile" id="profileBtn" title="Click to lock the panel">
                         <span class="avatar">A</span>
                         <span class="who"><b>Admin</b><small>Super Admin</small></span>
@@ -174,11 +179,14 @@
 
                 <!-- ============ DASHBOARD ============ -->
                 <section class="view" id="view-dashboard">
-
                     <div class="banner">
-                        <div>
+                        <div class="banner-text">
                             <h1>Welcome back, Admin! 👋</h1>
                             <p>Here's what's happening with your platform today.</p>
+                            <div class="banner-actions">
+                                <button type="button" class="btn-primary" data-action="add"><i class="fa-solid fa-plus"></i> Add Property</button>
+                                <button type="button" class="btn-white" data-go="properties"><i class="fa-regular fa-building"></i> View Properties</button>
+                            </div>
                         </div>
                         <div class="date-box">
                             <i class="fa-regular fa-calendar"></i>
@@ -192,74 +200,121 @@
                     <div class="stats">
                         <div class="stat">
                             <span class="ico blue"><i class="fa-solid fa-house-chimney"></i></span>
-                            <div><span class="label">Total Properties</span><div class="num" id="statProps">–</div><div class="trend" id="trendProps"></div></div>
+                            <div class="stat-body">
+                                <div class="stat-top"><span class="label">Total Properties</span><span class="badge-pct" id="badgeProps"></span></div>
+                                <div class="num" id="statProps">–</div>
+                                <div class="trend" id="trendProps"></div>
+                                <div class="spark" id="sparkProps"></div>
+                            </div>
                         </div>
                         <div class="stat">
                             <span class="ico green"><i class="fa-solid fa-user"></i></span>
-                            <div><span class="label">Registered Users</span><div class="num" id="statUsers">–</div><div class="trend" id="trendUsers"></div></div>
+                            <div class="stat-body">
+                                <div class="stat-top"><span class="label">Registered Users</span><span class="badge-pct" id="badgeUsers"></span></div>
+                                <div class="num" id="statUsers">–</div>
+                                <div class="trend" id="trendUsers"></div>
+                                <div class="spark" id="sparkUsers"></div>
+                            </div>
                         </div>
                         <div class="stat">
                             <span class="ico purple"><i class="fa-solid fa-comments"></i></span>
-                            <div><span class="label">Total Enquiries</span><div class="num" id="statInq">–</div><div class="trend" id="trendInq"></div></div>
+                            <div class="stat-body">
+                                <div class="stat-top"><span class="label">Total Enquiries</span><span class="badge-pct" id="badgeInq"></span></div>
+                                <div class="num" id="statInq">–</div>
+                                <div class="trend" id="trendInq"></div>
+                                <div class="spark" id="sparkInq"></div>
+                            </div>
                         </div>
                         <div class="stat">
                             <span class="ico orange"><i class="fa-solid fa-envelope"></i></span>
-                           <div><span class="label">Total Messages</span><div class="num" id="statMsg">–</div><div class="trend" id="trendMsg"></div></div>
+                            <div class="stat-body">
+                                <div class="stat-top"><span class="label">Total Messages</span><span class="badge-pct" id="badgeMsg"></span></div>
+                                <div class="num" id="statMsg">–</div>
+                                <div class="trend" id="trendMsg"></div>
+                                <div class="spark" id="sparkMsg"></div>
+                            </div>
                         </div>
                         <div class="stat">
                             <span class="ico teal"><i class="fa-solid fa-heart"></i></span>
-                            <div><span class="label">Wishlist Saves</span><div class="num" id="statWish">–</div></div>
+                            <div class="stat-body">
+                                <div class="stat-top"><span class="label">Wishlist Saves</span></div>
+                                <div class="num" id="statWish">–</div>
+                                <div class="trend" id="trendWish"></div>
+                                <div class="spark" id="sparkWish"></div>
+                            </div>
                         </div>
                     </div>
 
-                                        <div class="row2">
+                    <div class="row2">
 
-                    <div class="card donut-card">
-                        <div class="card-head">
-                            <h3>Property Distribution by Type</h3>
-                        </div>
-                        <div class="donut-body">
-                            <div class="donut-wrap">
-                                <canvas id="typeChart"></canvas>
-                                <div class="donut-center">
-                                    <small>Total</small>
-                                    <b id="donutTotal">0</b>
-                                    <small>Properties</small>
+                        <div class="card dist-card">
+                            <div class="card-head2">
+                                <span class="hi"><i class="fa-solid fa-house-chimney"></i></span>
+                                <div><h3>Property Distribution by Type</h3><small>Overview of all listed properties</small></div>
+                            </div>
+                            <div class="dist-body">
+                                <div class="donut-wrap">
+                                    <canvas id="typeChart"></canvas>
+                                    <div class="donut-center">
+                                        <small>Total</small>
+                                        <b id="donutTotal">0</b>
+                                        <small>Properties</small>
+                                    </div>
+                                </div>
+                                <ul class="legend" id="legend"></ul>
+                                <div class="dist-side">
+                                    <div id="distEmpty">
+                                        <i class="fa-solid fa-house dist-ico"></i>
+                                        <b>No properties yet</b>
+                                        <p>Add your first property to see distribution and insights here.</p>
+                                        <button type="button" class="btn-primary" data-action="add"><i class="fa-solid fa-circle-plus"></i> Add Property</button>
+                                    </div>
+                                    <div id="distInfo" hidden>
+                                        <div class="di-row"><span>Featured on home page</span><b id="distFeatured">0</b></div>
+                                        <div class="di-row"><span>Pending approval</span><b id="distPending">0</b></div>
+                                    </div>
                                 </div>
                             </div>
-                                                      <ul class="legend" id="legend"></ul>
                         </div>
-                    </div>
 
-                    <div class="card quick">
-                        <div class="card-head"><h3>Quick Actions</h3></div>
-                        <button type="button" class="q-btn primary" data-action="add"><i class="fa-solid fa-circle-plus"></i> Add Property</button>
-                        <button type="button" class="q-btn" data-go="users"><i class="fa-solid fa-user-group"></i> Manage Users</button>
-                        <button type="button" class="q-btn" data-go="enquiries"><i class="fa-solid fa-comments"></i> View Enquiries</button>
-                        <button type="button" class="q-btn" data-go="messages"><i class="fa-solid fa-envelope"></i> Check Messages</button>
-                        <button type="button" class="q-btn" data-go="analytics"><i class="fa-solid fa-chart-column"></i> View Analytics</button>
-                        <button type="button" class="q-btn" data-go="settings"><i class="fa-solid fa-gear"></i> Settings</button>
-                    </div>
-
-                    </div>
-
-                    
-                    <div class="card activity-card">
-                        <div class="card-head">
-                            <h3><i class="fa-solid fa-bolt" style="color:#7c3aed;margin-right:8px"></i>Recent Activity</h3>
+                        <div class="card quick">
+                            <div class="card-head2">
+                                <span class="hi"><i class="fa-solid fa-bolt"></i></span>
+                                <div><h3>Quick Actions</h3><small>Perform common tasks quickly</small></div>
+                            </div>
+                            <button type="button" class="q-btn primary" data-action="add"><i class="fa-solid fa-circle-plus"></i> Add Property <i class="fa-solid fa-chevron-right q-chev"></i></button>
+                            <button type="button" class="q-btn" data-go="users"><i class="fa-solid fa-user-group"></i> Manage Users <i class="fa-solid fa-chevron-right q-chev"></i></button>
+                            <button type="button" class="q-btn" data-go="enquiries"><i class="fa-solid fa-comments"></i> View Enquiries <i class="fa-solid fa-chevron-right q-chev"></i></button>
+                            <button type="button" class="q-btn" data-go="messages"><i class="fa-solid fa-envelope"></i> Check Messages <i class="fa-solid fa-chevron-right q-chev"></i></button>
+                            <button type="button" class="q-btn" data-go="analytics"><i class="fa-solid fa-chart-column"></i> View Analytics <i class="fa-solid fa-chevron-right q-chev"></i></button>
+                            <button type="button" class="q-btn" data-go="settings"><i class="fa-solid fa-gear"></i> Settings <i class="fa-solid fa-chevron-right q-chev"></i></button>
                         </div>
-                        <ul class="activity-list" id="activityList">
-                            <li class="activity-empty">Loading...</li>
-                        </ul>
+
                     </div>
 
-                    <div class="card visited-card">
-                        <div class="card-head">
-                            <h3><i class="fa-solid fa-eye" style="color:#f59e0b;margin-right:8px"></i>Most Visited Properties</h3>
+                    <div class="row-half">
+
+                        <div class="card activity-card">
+                            <div class="card-head2">
+                                <span class="hi"><i class="fa-regular fa-clock"></i></span>
+                                <div><h3>Recent Activity</h3><small>Latest actions across your platform</small></div>
+                            </div>
+                            <ul class="activity-list" id="activityList">
+                                <li class="activity-empty">Loading...</li>
+                            </ul>
                         </div>
-                        <ul class="visited-list" id="mostVisited">
-                            <li class="visited-empty">Loading...</li>
-                        </ul>
+
+                        <div class="card visited-card">
+                            <div class="card-head2">
+                                <span class="hi"><i class="fa-regular fa-eye"></i></span>
+                                <div><h3>Most Visited Properties</h3><small>Top performing properties based on views</small></div>
+                                <button type="button" class="link-btn" data-go="analytics">View All</button>
+                            </div>
+                            <ul class="visited-list" id="mostVisited">
+                                <li class="visited-empty">Loading...</li>
+                            </ul>
+                        </div>
+
                     </div>
 
                     <div class="card props-card" id="propsCard">

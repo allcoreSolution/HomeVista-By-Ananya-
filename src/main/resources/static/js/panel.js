@@ -309,37 +309,49 @@
             true);
     }
 
-    function renderTrend(id, t) {
+        function renderTrend(id, t) {
 
         const el = document.getElementById(id);
+        const badge = document.getElementById(id.replace("trend", "badge"));
         if (!el) return;
 
         el.className = "trend";
+        if (badge) badge.className = "badge-pct flat";
 
         if (!t) {
             el.textContent = "";
+            if (badge) badge.textContent = "";
             return;
         }
 
         const now = t.thisMonth || 0;
         const prev = t.lastMonth || 0;
 
-        if (prev > 0) {
-            const pct = Math.round(((now - prev) / prev) * 100);
-            if (pct > 0) {
-                el.classList.add("up");
-                el.textContent = "▲ " + pct + "% vs last month";
-            } else if (pct < 0) {
-                el.classList.add("down");
-                el.textContent = "▼ " + Math.abs(pct) + "% vs last month";
-            } else {
-                el.textContent = "Same as last month";
-            }
-        } else if (now > 0) {
+        if (now > 0) {
             el.classList.add("up");
             el.textContent = "+" + now + " new this month";
         } else {
             el.textContent = "No new this month";
+        }
+
+        if (!badge) return;
+
+        if (prev > 0) {
+            const pct = Math.round(((now - prev) / prev) * 100);
+            if (pct > 0) {
+                badge.className = "badge-pct";
+                badge.textContent = "↑ " + pct + "%";
+            } else if (pct < 0) {
+                badge.className = "badge-pct down";
+                badge.textContent = "↓ " + Math.abs(pct) + "%";
+            } else {
+                badge.textContent = "0%";
+            }
+        } else if (now > 0) {
+            badge.className = "badge-pct";
+            badge.textContent = "New";
+        } else {
+            badge.textContent = "0%";
         }
     }
 
@@ -355,7 +367,8 @@
         renderTrend("trendProps", tr.properties);
                renderTrend("trendUsers", tr.users);
         renderTrend("trendInq", tr.enquiries);
-               renderTrend("trendMsg", tr.messages);
+                      renderTrend("trendMsg", tr.messages);
+        setText("trendWish", "All time");
         renderAnalytics(s);
         renderDonut(s.byType || {}, s.properties);
     }
@@ -445,7 +458,24 @@
         </tr>`;
     }
 
+        function renderDistSide() {
+        const empty = document.getElementById("distEmpty");
+        const info = document.getElementById("distInfo");
+        if (!empty || !info) return;
+
+        const has = allProps.length > 0;
+        empty.hidden = has;
+        info.hidden = !has;
+
+        if (has) {
+            setText("distFeatured", allProps.filter(function (p) { return p.featured; }).length);
+            setText("distPending", allProps.filter(function (p) { return String(p.status || "").toLowerCase() === "pending"; }).length);
+        }
+    }
+
     function renderProps() {
+
+        renderDistSide();
 
         const q = propSearch.value.trim().toLowerCase();
         const t = propFilter.value;
@@ -871,14 +901,16 @@
 
     // ---------- Sidebar aur Quick Actions ----------
 
-    document.getElementById("menuBtn").addEventListener("click", function () {
+        function toggleNav() {
         if (window.innerWidth <= 900) {
             document.body.classList.toggle("nav-open");
         } else {
             document.body.classList.toggle("nav-hidden");
         }
-    });
+    }
 
+    document.getElementById("menuBtn").addEventListener("click", toggleNav);
+    document.getElementById("sideCollapse").addEventListener("click", toggleNav);
     function showView(name) {
 
         document.querySelectorAll(".nav-item").forEach(function (b) {
