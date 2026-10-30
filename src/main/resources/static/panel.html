@@ -403,15 +403,28 @@
                 </section>
                 <!-- ============ BAAKI SECTIONS (agle steps mein) ============ -->
                
-                               <section class="view" id="view-users" hidden>
+                                 <section class="view" id="view-users" hidden>
                     <div class="card">
                         <div class="card-head">
                             <h3>Users</h3>
-                            <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="userSearch" placeholder="Search users..."></div>
+                            <div class="tools">
+                                <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="userSearch" placeholder="Search users..."></div>
+                                <select id="userDate">
+                                    <option value="">All time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">Last 7 days</option>
+                                    <option value="month">This month</option>
+                                </select>
+                                <select id="userSort">
+                                    <option value="newest">Newest first</option>
+                                    <option value="oldest">Oldest first</option>
+                                </select>
+                            </div>
                         </div>
+                        <div class="filter-count" id="userCount"></div>
                         <div class="table-wrap">
                             <table class="tbl">
-                                <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th></tr></thead>
+                                <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Actions</th></tr></thead>
                                 <tbody id="userRows"></tbody>
                             </table>
                         </div>
@@ -422,11 +435,27 @@
                     <div class="card">
                         <div class="card-head">
                             <h3>Enquiries</h3>
-                            <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="enqSearch" placeholder="Search enquiries..."></div>
+                            <div class="tools">
+                                <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="enqSearch" placeholder="Search enquiries..."></div>
+                                <select id="enqStatus">
+                                    <option value="">All status</option>
+                                    <option value="New">New</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Resolved">Resolved</option>
+                                </select>
+                                <select id="enqDate">
+                                    <option value="">All time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">Last 7 days</option>
+                                    <option value="month">This month</option>
+                                </select>
+                                <select id="enqProp"><option value="">All properties</option></select>
+                            </div>
                         </div>
+                        <div class="filter-count" id="enqCount"></div>
                         <div class="table-wrap">
                             <table class="tbl">
-                                <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Property</th><th>Message</th></tr></thead>
+                                <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Property</th><th>Message</th><th>Status</th><th>Actions</th></tr></thead>
                                 <tbody id="enqRows"></tbody>
                             </table>
                         </div>
@@ -437,16 +466,31 @@
                     <div class="card">
                         <div class="card-head">
                             <h3>Contact Messages</h3>
-                            <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="msgSearch" placeholder="Search messages..."></div>
+                            <div class="tools">
+                                <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="msgSearch" placeholder="Search messages..."></div>
+                                <select id="msgStatus">
+                                    <option value="">All status</option>
+                                    <option value="New">New</option>
+                                    <option value="Replied">Replied</option>
+                                    <option value="Resolved">Resolved</option>
+                                </select>
+                                <select id="msgDate">
+                                    <option value="">All time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">Last 7 days</option>
+                                    <option value="month">This month</option>
+                                </select>
+                            </div>
                         </div>
+                        <div class="filter-count" id="msgCount"></div>
                         <div class="table-wrap">
                             <table class="tbl">
-                                <thead><tr><th>Date</th><th>Name</th><th>Contact</th><th>Subject</th><th>Message</th></tr></thead>
+                                <thead><tr><th>Date</th><th>Name</th><th>Contact</th><th>Subject</th><th>Message</th><th>Status</th><th>Actions</th></tr></thead>
                                 <tbody id="msgRows"></tbody>
                             </table>
                         </div>
                     </div>
-                </section>
+                </section>              
                 <section class="view" id="view-analytics" hidden>
     <div class="ana-grid">
         <div class="card">
@@ -588,6 +632,37 @@
                 <button type="submit" class="btn-primary">Save</button>
             </div>
 
+        </form>
+    </div>
+
+        <!-- ================= EDIT USER POPUP ================= -->
+    <div class="modal" id="userModal" hidden>
+        <form class="modal-card" id="userForm" style="max-width:460px">
+            <div class="modal-head">
+                <h3>Edit User</h3>
+                <button type="button" class="icon-btn" id="userModalClose" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="form-grid">
+                <div class="full">
+                    <label for="uEmail">Email (cannot be changed)</label>
+                    <input type="text" id="uEmail" disabled>
+                </div>
+                <div class="full">
+                    <label for="uName">Name</label>
+                    <input type="text" id="uName">
+                </div>
+                <div class="full">
+                    <label for="uPhone">Phone</label>
+                    <input type="text" id="uPhone">
+                </div>
+            </div>
+            <div class="modal-msg" id="userMsg"></div>
+            <div class="modal-actions">
+                <button type="button" class="btn-ghost" id="userCancel">Cancel</button>
+                <button type="submit" class="btn-primary">Save</button>
+            </div>
         </form>
     </div>
 
