@@ -23,9 +23,10 @@
     }
 
     // Button par spinner dikhao / hatao
-    function setGateBusy(busy, label) {
+      function setGateBusy(busy, label) {
         gateBtn.disabled = busy;
-        gateBtn.innerHTML = busy ? '<span class="g-spin"></span> ' + label : gateBtnHtml;
+        gateBtn.classList.toggle("is-busy", busy);
+        gateBtn.innerHTML = busy ? label : gateBtnHtml;
     }
     const propRows = document.getElementById("propRows");
     const propSearch = document.getElementById("propSearch");

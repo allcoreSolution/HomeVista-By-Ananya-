@@ -511,6 +511,8 @@ body.nav-hidden .only-mobile { display: inline-block; }
 
 /* Login button spinner + success color */
 #gateMsg.is-ok { color: #16a34a; }
+/* Login button: chhota height + sirf ek loader */
+.g-submit { padding: 14px 22px; font-size: 18px; height: auto; min-height: 0; line-height: 1.2; }
 .g-submit:disabled { opacity: .9; cursor: wait; filter: none; }
-.g-spin { width: 18px; height: 18px; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: hvSpin .7s linear infinite; }
+.g-submit.is-busy::before { content: ""; width: 18px; height: 18px; flex: none; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: hvSpin .7s linear infinite; }
 @keyframes hvSpin { to { transform: rotate(360deg); } }
