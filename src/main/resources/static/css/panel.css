@@ -488,3 +488,29 @@ body.nav-hidden .only-mobile { display: inline-block; }
 .activity-list .activity-empty::before { content: "\f15c"; font-family: "Font Awesome 6 Free"; font-weight: 400; display: block; font-size: 30px; color: #b8c4d8; margin-bottom: 8px; }
 .visited-list .visited-empty::before { content: "\f015"; font-family: "Font Awesome 6 Free"; font-weight: 900; display: block; font-size: 30px; color: #b8c4d8; margin-bottom: 8px; }
 @media (max-width: 1100px) { .row-half { grid-template-columns: 1fr; } }
+/* ===== LOGIN TRANSITION + GATE MESSAGE COLORS ===== */
+#gate {
+  transition: opacity .45s ease, transform .45s ease, visibility .45s;
+}
+#gate.gate-leaving {
+  opacity: 0;
+  transform: scale(1.03);
+  pointer-events: none;
+}
+#gateMsg.is-info  { color: #2563eb; }  /* checking = blue */
+#gateMsg.is-error { color: #dc2626; }  /* galat password = red */
+
+/* Dashboard fade-in (sirf opacity, taaki fixed sidebar na hile) */
+@keyframes hvFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hvRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+.hv-enter { animation: hvFadeIn .5s ease both; }
+.hv-enter .content { animation: hvRise .6s ease both; }
+
+/* Login button spinner + success color */
+#gateMsg.is-ok { color: #16a34a; }
+.g-submit:disabled { opacity: .9; cursor: wait; filter: none; }
+.g-spin { width: 18px; height: 18px; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: hvSpin .7s linear infinite; }
+@keyframes hvSpin { to { transform: rotate(360deg); } }

@@ -13,7 +13,20 @@
     const gateUser = document.getElementById("gateUser");
     const gateMsg = document.getElementById("gateMsg");
     const app = document.getElementById("app");
+    const gateBtn = gateForm.querySelector(".g-submit");
+    const gateBtnHtml = gateBtn.innerHTML;
 
+    // Message ka rang: info = neela, ok = hara, error = laal
+    function setGateMsg(text, kind) {
+        gateMsg.textContent = text || "";
+        gateMsg.className = "gate-msg" + (kind ? " is-" + kind : "");
+    }
+
+    // Button par spinner dikhao / hatao
+    function setGateBusy(busy, label) {
+        gateBtn.disabled = busy;
+        gateBtn.innerHTML = busy ? '<span class="g-spin"></span> ' + label : gateBtnHtml;
+    }
     const propRows = document.getElementById("propRows");
     const propSearch = document.getElementById("propSearch");
     const propFilter = document.getElementById("propFilter");
@@ -77,8 +90,10 @@
     // ---------- Lock screen ----------
         function showGate(message, invalid) {
         app.hidden = true;
+        gate.classList.remove("gate-leaving");
         gate.hidden = false;
-        gateMsg.textContent = message || "";
+        setGateMsg(message, "error");
+        setGateBusy(false);
         gateKey.value = "";
         gateKey.classList.toggle("invalid", !!invalid);
         gateUser.classList.toggle("invalid", !!invalid);
@@ -89,7 +104,7 @@
     function clearInvalid() {
         gateKey.classList.remove("invalid");
         gateUser.classList.remove("invalid");
-        gateMsg.textContent = "";
+        setGateMsg("");
     }
     gateKey.addEventListener("input", clearInvalid);
         gateUser.addEventListener("input", clearInvalid);
@@ -124,8 +139,7 @@
     }
 
     // Session se khole (page refresh par bina dobara login ke)
-    async function unlock() {
-
+    async function unlock(animate) {
         let res;
 
         try {
@@ -145,8 +159,22 @@
             return false;
         }
 
-        gate.hidden = true;
-        app.hidden = false;
+       if (animate) {
+            // Smooth: gate fade-out hota hai, dashboard fade-in
+            gate.classList.add("gate-leaving");
+            app.hidden = false;
+            app.classList.add("hv-enter");
+            setTimeout(function () {
+                gate.hidden = true;
+                gate.classList.remove("gate-leaving");
+                app.classList.remove("hv-enter");
+                setGateMsg("");
+                setGateBusy(false);
+            }, 500);
+        } else {
+            gate.hidden = true;
+            app.hidden = false;
+        }
 
                 renderStats(await res.json());
         loadProperties();
@@ -198,12 +226,12 @@
         event.preventDefault();
 
         if (!gateUser.value.trim() || gateKey.value === "") {
-            gateMsg.textContent = "Please enter username and password.";
+            setGateMsg("Please enter username and password.", "error");
             return;
         }
 
-        gateMsg.textContent = "Checking...";
-
+           setGateMsg("Checking...", "info");
+           setGateBusy(true, "Checking...");
         let res;
         try {
             res = await fetch("/api/admin-auth/login", {
@@ -236,8 +264,11 @@
             return;
         }
 
-        gateKey.value = "";
-        unlock();
+          gateKey.value = "";
+           setGateMsg("Login successful! Opening dashboard...", "ok");
+           setGateBusy(true, "Opening...");
+           await new Promise(function (r) { setTimeout(r, 350); });
+           await unlock(true);
     });
 
        // Logout: server se admin session hatao, phir lock screen
