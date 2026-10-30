@@ -735,18 +735,27 @@
     function renderEnquiryPage() {
 
         const q = document.getElementById("enqSearch").value.trim().toLowerCase();
+        const from = document.getElementById("enqFrom").value;
+        const to = document.getElementById("enqTo").value;
         const body = document.getElementById("enqRows");
 
         const list = enquiries.filter(function (e) {
-            return !q || [e.name, e.phone, e.propertyTitle, e.message].join(" ").toLowerCase().includes(q);
+            if (q && ![e.name, e.phone, e.propertyTitle, e.message].join(" ").toLowerCase().includes(q)) return false;
+            if (from || to) {
+                const d = String(e.createdAt || "").slice(0, 10);
+                if (!d) return false;
+                if (from && d < from) return false;
+                if (to && d > to) return false;
+            }
+            return true;
         });
 
         body.innerHTML = list.length
             ? list.map(function (e) {
                 const c = enquiryCells(e);
-                return `<tr><td>${c.date}</td><td>${c.name}</td><td>${c.phone}</td><td>${c.property}</td><td class="msg-cell">${c.message}</td></tr>`;
+                return `<tr><td>${c.date}</td><td>${c.name}</td><td>${c.phone}</td><td>${c.property}</td><td class="msg-cell">${c.message}</td><td><button type="button" class="act del" data-id="${esc(e.id)}" title="Delete"><i class="fa-regular fa-trash-can"></i></button></td></tr>`;
             }).join("")
-            : '<tr><td colspan="5" class="empty">No enquiries found.</td></tr>';
+            : '<tr><td colspan="6" class="empty">No enquiries found.</td></tr>';
     }
 
     function renderMessagePage() {
@@ -782,9 +791,13 @@
 
         body.innerHTML = list.length
             ? list.map(function (u) {
-                return `<tr><td>${esc(u.id)}</td><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td>${esc(u.phone)}</td><td>User</td></tr>`;
+                return `<tr><td>${esc(u.id)}</td><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td>${esc(u.phone)}</td><td>User</td>
+                    <td>
+                        <button type="button" class="act edit" data-id="${esc(u.id)}" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button type="button" class="act del" data-id="${esc(u.id)}" title="Delete"><i class="fa-regular fa-trash-can"></i></button>
+                    </td></tr>`;
             }).join("")
-            : '<tr><td colspan="5" class="empty">No users found.</td></tr>';
+            : '<tr><td colspan="6" class="empty">No users found.</td></tr>';
     }
 
     async function loadLists() {
@@ -808,6 +821,146 @@
     document.getElementById("enqSearch").addEventListener("input", renderEnquiryPage);
     document.getElementById("msgSearch").addEventListener("input", renderMessagePage);
     document.getElementById("userSearch").addEventListener("input", renderUserPage);
+
+    // ---------- Enquiries: date filter + delete ----------
+
+    function isoDate(d) {
+        return d.getFullYear() + "-"
+            + String(d.getMonth() + 1).padStart(2, "0") + "-"
+            + String(d.getDate()).padStart(2, "0");
+    }
+
+    ["enqFrom", "enqTo"].forEach(function (id) {
+        document.getElementById(id).addEventListener("change", function () {
+            document.getElementById("enqQuick").value = "";
+            renderEnquiryPage();
+        });
+    });
+
+    document.getElementById("enqQuick").addEventListener("change", function () {
+        const days = Number(this.value);
+        if (!days) { document.getElementById("enqFrom").value = ""; }
+        else {
+            const d = new Date();
+            d.setDate(d.getDate() - days + 1);
+            document.getElementById("enqFrom").value = isoDate(d);
+        }
+        document.getElementById("enqTo").value = isoDate(new Date());
+        if (!days) document.getElementById("enqTo").value = "";
+        renderEnquiryPage();
+    });
+
+    document.getElementById("enqDateClear").addEventListener("click", function () {
+        document.getElementById("enqFrom").value = "";
+        document.getElementById("enqTo").value = "";
+        document.getElementById("enqQuick").value = "";
+        renderEnquiryPage();
+    });
+
+    document.getElementById("enqRows").addEventListener("click", async function (event) {
+
+        const del = event.target.closest(".act.del");
+        if (!del) return;
+
+        const e = enquiries.find(function (x) { return String(x.id) === del.dataset.id; });
+        if (!e) return;
+
+        if (!confirm('Delete enquiry from "' + e.name + '"? This cannot be undone.')) return;
+
+        const res = await api("/api/admin/inquiries/" + e.id, { method: "DELETE" });
+
+        if (res.ok) {
+            toast("Enquiry deleted.", true);
+            await loadLists();
+            refreshStats();
+        } else {
+            toast("Could not delete (status " + res.status + ").", false);
+        }
+    });
+
+    // ---------- Users: edit + delete ----------
+
+    const userModal = document.getElementById("userModal");
+    const userForm = document.getElementById("userForm");
+    const userMsg = document.getElementById("userMsg");
+    let editingUser = null;
+
+    function closeUserModal() {
+        userModal.hidden = true;
+        editingUser = null;
+    }
+
+    document.getElementById("userModalClose").addEventListener("click", closeUserModal);
+    document.getElementById("userCancel").addEventListener("click", closeUserModal);
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !userModal.hidden) closeUserModal();
+    });
+
+    document.getElementById("userRows").addEventListener("click", async function (event) {
+
+        const editBtn = event.target.closest(".act.edit");
+        const delBtn = event.target.closest(".act.del");
+        const btn = editBtn || delBtn;
+        if (!btn) return;
+
+        const u = users.find(function (x) { return String(x.id) === btn.dataset.id; });
+        if (!u) return;
+
+        if (editBtn) {
+            editingUser = u;
+            document.getElementById("uName").value = u.name || "";
+            document.getElementById("uPhone").value = u.phone || "";
+            userMsg.textContent = "";
+            userModal.hidden = false;
+            return;
+        }
+            if (!confirm('Delete user "' + u.name + '" (' + u.email + ')? Their wishlist saves are removed too. This cannot be undone.')) return;
+
+            const res = await api("/api/admin/users/" + u.id, { method: "DELETE" });
+
+            if (res.ok) {
+                toast("User deleted.", true);
+                await loadLists();
+                refreshStats();
+            } else {
+                toast("Could not delete (status " + res.status + ").", false);
+            }
+    });
+
+    userForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+        if (!editingUser) return;
+
+        const name = val("uName");
+        const phone = val("uPhone");
+
+        if (!name) { userMsg.textContent = "Please enter a name."; return; }
+        if (!/^[0-9+\-\s]{7,15}$/.test(phone)) { userMsg.textContent = "Please enter a valid phone number."; return; }
+
+        userMsg.textContent = "Saving...";
+
+        try {
+            const res = await api("/api/admin/users/" + editingUser.id, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: name, phone: phone })
+            });
+
+            const data = await res.json().catch(function () { return {}; });
+
+            if (res.ok) {
+                closeUserModal();
+                toast("User updated.", true);
+                await loadLists();
+            } else {
+                userMsg.textContent = data.message || "Could not update (status " + res.status + ").";
+            }
+        } catch (err) {
+            userMsg.textContent = "Could not reach the server.";
+        }
+    });
 
     // ---------- Add / Edit popup ----------
 

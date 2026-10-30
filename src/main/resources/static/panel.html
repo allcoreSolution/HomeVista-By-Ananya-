@@ -407,11 +407,13 @@
                     <div class="card">
                         <div class="card-head">
                             <h3>Users</h3>
-                            <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="userSearch" placeholder="Search users..."></div>
+                            <div class="tools">
+                                <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="userSearch" placeholder="Search users..."></div>
+                            </div>
                         </div>
                         <div class="table-wrap">
                             <table class="tbl">
-                                <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th></tr></thead>
+                                <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Action</th></tr></thead>
                                 <tbody id="userRows"></tbody>
                             </table>
                         </div>
@@ -422,11 +424,22 @@
                     <div class="card">
                         <div class="card-head">
                             <h3>Enquiries</h3>
-                            <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="enqSearch" placeholder="Search enquiries..."></div>
+                            <div class="tools">
+                                <div class="mini-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="enqSearch" placeholder="Search enquiries..."></div>
+                                <select id="enqQuick">
+                                    <option value="">All dates</option>
+                                    <option value="7">Last 7 days</option>
+                                    <option value="30">Last 30 days</option>
+                                    <option value="90">Last 90 days</option>
+                                </select>
+                                <input type="date" id="enqFrom" class="date-inp" title="From date">
+                                <input type="date" id="enqTo" class="date-inp" title="To date">
+                                <button type="button" class="btn-ghost" id="enqDateClear">Clear</button>
+                            </div>
                         </div>
                         <div class="table-wrap">
                             <table class="tbl">
-                                <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Property</th><th>Message</th></tr></thead>
+                                <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Property</th><th>Message</th><th>Action</th></tr></thead>
                                 <tbody id="enqRows"></tbody>
                             </table>
                         </div>
@@ -588,6 +601,33 @@
                 <button type="submit" class="btn-primary">Save</button>
             </div>
 
+        </form>
+    </div>
+
+    <!-- ================= USER EDIT POPUP ================= -->
+    <div class="modal" id="userModal" hidden>
+        <form class="modal-card" id="userForm" style="max-width:440px">
+            <div class="modal-head">
+                <h3>Edit User</h3>
+                <button type="button" class="icon-btn" id="userModalClose" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="form-grid">
+                <div class="full">
+                    <label for="uName">Name</label>
+                    <input type="text" id="uName">
+                </div>
+                <div class="full">
+                    <label for="uPhone">Phone</label>
+                    <input type="text" id="uPhone">
+                </div>
+            </div>
+            <div class="modal-msg" id="userMsg"></div>
+            <div class="modal-actions">
+                <button type="button" class="btn-ghost" id="userCancel">Cancel</button>
+                <button type="submit" class="btn-primary">Save</button>
+            </div>
         </form>
     </div>
 
