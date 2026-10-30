@@ -19,7 +19,10 @@ public class ContactMessage {
     @Column(length = 2000)
     private String message;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+        private LocalDateTime createdAt = LocalDateTime.now();
+
+    // New / Replied / Resolved (purani rows mein null hoga, use "New" maante hain)
+    private String status = "New";
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -40,5 +43,8 @@ public class ContactMessage {
     public void setMessage(String message) { this.message = message; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+       public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public String getStatus() { return status == null ? "New" : status; }
+    public void setStatus(String status) { this.status = status; }
 }

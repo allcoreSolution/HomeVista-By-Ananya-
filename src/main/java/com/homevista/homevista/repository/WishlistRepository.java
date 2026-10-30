@@ -12,8 +12,12 @@ public interface WishlistRepository extends JpaRepository<Wishlist, Long> {
 
     boolean existsByUserEmailAndPropertyId(String userEmail, Long propertyId);
 
-    @Transactional
+       @Transactional
     void deleteByUserEmailAndPropertyId(String userEmail, Long propertyId);
+
+    // User delete hone par uski saari wishlist saves hatane ke liye
+    @Transactional
+    void deleteByUserEmail(String userEmail);
 
     // Har property kitni baar wishlist hui (sabse zyada pehle). Row = [propertyId, count]
     @Query("SELECT w.propertyId, COUNT(w) FROM Wishlist w " +

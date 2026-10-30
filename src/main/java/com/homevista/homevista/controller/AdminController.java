@@ -1,6 +1,8 @@
 package com.homevista.homevista.controller;
-
+import com.homevista.homevista.entity.ContactMessage;
 import com.homevista.homevista.entity.Property;
+import com.homevista.homevista.entity.PropertyInquiry;
+import com.homevista.homevista.entity.User;
 import com.homevista.homevista.repository.ContactMessageRepository;
 import com.homevista.homevista.repository.PropertyInquiryRepository;
 import com.homevista.homevista.repository.PropertyRepository;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -155,6 +159,141 @@ public class AdminController {
             list.add(item);
         });
 
-        return ResponseEntity.ok(list);
+             return ResponseEntity.ok(list);
+    }
+
+    // ================= Edit / Delete / Status (sirf admin) =================
+
+    private static final Set<String> INQUIRY_STATUS = Set.of("New", "Contacted", "Resolved");
+    private static final Set<String> MESSAGE_STATUS = Set.of("New", "Replied", "Resolved");
+
+    private ResponseEntity<Map<String, String>> bad(String msg) {
+        return ResponseEntity.badRequest().body(Map.of("message", msg));
+    }
+
+    private ResponseEntity<Map<String, String>> notFound(String what) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("message", what + " not found."));
+    }
+
+    private String text(Object value) {
+        return value == null ? "" : value.toString().trim();
+    }
+
+    // PUT /api/admin/users/{id}  (sirf naam aur phone badalte hain)
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> updateUser(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> req,
+            @RequestHeader(value = "X-Admin-Key", required = false) String key) {
+
+        if (!adminKeyService.isValid(key)) return forbidden();
+
+        String name = text(req.get("name"));
+        String phone = text(req.get("phone"));
+
+        if (name.isBlank() || name.length() > 100) {
+            return bad("Please enter a name (max 100 characters).");
+        }
+        if (!phone.matches("[0-9+\\-\\s]{7,15}")) {
+            return bad("Please enter a valid phone number.");
+        }
+
+        Optional<User> found = userRepository.findById(id);
+        if (found.isEmpty()) return notFound("User");
+
+        User u = found.get();
+        u.setName(name);
+        u.setPhone(phone);
+        userRepository.save(u);
+
+        return ResponseEntity.ok(Map.of("message", "User updated."));
+    }
+
+    // DELETE /api/admin/users/{id}  (wishlist saves bhi hat jaati hain, enquiries rehte hain)
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<?> deleteUser(
+            @PathVariable Long id,
+            @RequestHeader(value = "X-Admin-Key", required = false) String key) {
+
+        if (!adminKeyService.isValid(key)) return forbidden();
+
+        Optional<User> found = userRepository.findById(id);
+        if (found.isEmpty()) return notFound("User");
+
+        wishlistRepository.deleteByUserEmail(found.get().getEmail());
+        userRepository.delete(found.get());
+
+        return ResponseEntity.ok(Map.of("message", "User deleted."));
+    }
+
+    // PUT /api/admin/inquiries/{id}/status
+    @PutMapping("/inquiries/{id}/status")
+    public ResponseEntity<?> updateInquiryStatus(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> req,
+            @RequestHeader(value = "X-Admin-Key", required = false) String key) {
+
+        if (!adminKeyService.isValid(key)) return forbidden();
+
+        String status = text(req.get("status"));
+        if (!INQUIRY_STATUS.contains(status)) return bad("Invalid status.");
+
+        Optional<PropertyInquiry> found = inquiryRepository.findById(id);
+        if (found.isEmpty()) return notFound("Enquiry");
+
+        PropertyInquiry q = found.get();
+        q.setStatus(status);
+        inquiryRepository.save(q);
+
+        return ResponseEntity.ok(Map.of("message", "Status updated."));
+    }
+
+    // DELETE /api/admin/inquiries/{id}
+    @DeleteMapping("/inquiries/{id}")
+    public ResponseEntity<?> deleteInquiry(
+            @PathVariable Long id,
+            @RequestHeader(value = "X-Admin-Key", required = false) String key) {
+
+        if (!adminKeyService.isValid(key)) return forbidden();
+        if (!inquiryRepository.existsById(id)) return notFound("Enquiry");
+
+        inquiryRepository.deleteById(id);
+        return ResponseEntity.ok(Map.of("message", "Enquiry deleted."));
+    }
+
+    // PUT /api/admin/contact-messages/{id}/status
+    @PutMapping("/contact-messages/{id}/status")
+    public ResponseEntity<?> updateMessageStatus(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> req,
+            @RequestHeader(value = "X-Admin-Key", required = false) String key) {
+
+        if (!adminKeyService.isValid(key)) return forbidden();
+
+        String status = text(req.get("status"));
+        if (!MESSAGE_STATUS.contains(status)) return bad("Invalid status.");
+
+        Optional<ContactMessage> found = contactRepository.findById(id);
+        if (found.isEmpty()) return notFound("Message");
+
+        ContactMessage m = found.get();
+        m.setStatus(status);
+        contactRepository.save(m);
+
+        return ResponseEntity.ok(Map.of("message", "Status updated."));
+    }
+
+    // DELETE /api/admin/contact-messages/{id}
+    @DeleteMapping("/contact-messages/{id}")
+    public ResponseEntity<?> deleteMessage(
+            @PathVariable Long id,
+            @RequestHeader(value = "X-Admin-Key", required = false) String key) {
+
+        if (!adminKeyService.isValid(key)) return forbidden();
+        if (!contactRepository.existsById(id)) return notFound("Message");
+
+        contactRepository.deleteById(id);
+        return ResponseEntity.ok(Map.of("message", "Message deleted."));
     }
 }
