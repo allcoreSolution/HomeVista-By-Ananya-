@@ -509,10 +509,24 @@ body.nav-hidden .only-mobile { display: inline-block; }
 .hv-enter { animation: hvFadeIn .5s ease both; }
 .hv-enter .content { animation: hvRise .6s ease both; }
 
-/* Login button spinner + success color */
+/* ===== LOGIN BUTTON: fixed height (overrides sab kuch) ===== */
+.gate-card .g-submit {
+    height: 54px !important;
+    min-height: 0 !important;
+    padding: 0 22px !important;
+    font-size: 17px !important;
+    line-height: 1 !important;
+    overflow: hidden;
+}
+.gate-card .gate-msg,
+.gate-card .g-back { position: relative; z-index: 1; }
+
+
+.g-submit.is-busy i { display: none; }
+.g-submit span { color: #fff; }
+
+/* ===== LOGIN: success message, disabled, spinner ===== */
 #gateMsg.is-ok { color: #16a34a; }
-/* Login button: chhota height + sirf ek loader */
-.g-submit { padding: 14px 22px; font-size: 18px; height: auto; min-height: 0; line-height: 1.2; }
 .g-submit:disabled { opacity: .9; cursor: wait; filter: none; }
 .g-submit.is-busy::before { content: ""; width: 18px; height: 18px; flex: none; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: hvSpin .7s linear infinite; }
 @keyframes hvSpin { to { transform: rotate(360deg); } }

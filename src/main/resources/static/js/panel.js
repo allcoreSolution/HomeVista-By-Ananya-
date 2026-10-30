@@ -13,8 +13,8 @@
     const gateUser = document.getElementById("gateUser");
     const gateMsg = document.getElementById("gateMsg");
     const app = document.getElementById("app");
-    const gateBtn = gateForm.querySelector(".g-submit");
-    const gateBtnHtml = gateBtn.innerHTML;
+    const gateBtn = document.getElementById("gateBtn");
+    const gateBtnLabel = document.getElementById("gateBtnLabel");
 
     // Message ka rang: info = neela, ok = hara, error = laal
     function setGateMsg(text, kind) {
@@ -23,10 +23,10 @@
     }
 
     // Button par spinner dikhao / hatao
-      function setGateBusy(busy, label) {
+    function setGateBusy(busy, label) {
         gateBtn.disabled = busy;
         gateBtn.classList.toggle("is-busy", busy);
-        gateBtn.innerHTML = busy ? label : gateBtnHtml;
+        gateBtnLabel.textContent = busy ? label : "Login";
     }
     const propRows = document.getElementById("propRows");
     const propSearch = document.getElementById("propSearch");
