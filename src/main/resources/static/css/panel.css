@@ -514,11 +514,3 @@ body.nav-hidden .only-mobile { display: inline-block; }
 .g-submit:disabled { opacity: .9; cursor: wait; filter: none; }
 .g-spin { width: 18px; height: 18px; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: hvSpin .7s linear infinite; }
 @keyframes hvSpin { to { transform: rotate(360deg); } }
-/* ===== ADMIN LISTS: filters, status, count ===== */
-.card-head { flex-wrap: wrap; gap: 12px; }
-.filter-count { margin: -6px 0 12px; font-size: 13px; color: #64748b; font-weight: 600; }
-.status-sel { padding: 6px 10px; border-radius: 20px; border: 1px solid transparent; font-size: 12px; font-weight: 700; cursor: pointer; }
-.status-sel.s-new { background: #dbeafe; color: #1261d8; }
-.status-sel.s-contacted, .status-sel.s-replied { background: #fef3c7; color: #b45309; }
-.status-sel.s-resolved { background: #dcfce7; color: #15803d; }
-.form-grid input[disabled] { background: #f1f5fb; color: #64748b; }

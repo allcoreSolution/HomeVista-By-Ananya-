@@ -648,8 +648,7 @@
             }).join("")
             : '<tr><td colspan="4" class="empty">No users yet.</td></tr>';
 
-            // ----- Poore pages -----
-        fillPropFilter();
+        // ----- Poore pages -----
                renderEnquiryPage();
         renderMessagePage();
         renderUserPage();
@@ -732,91 +731,31 @@
         }).join("");
     }
 
-
-        // ---------- Filters + status helpers ----------
-
-    const ENQ_STATUS = ["New", "Contacted", "Resolved"];
-    const MSG_STATUS = ["New", "Replied", "Resolved"];
-
-    // Date filter: today / week / month. Jinki date nahi hai (purani rows), wo filter lagne par chhup jaati hain
-    function inRange(iso, range) {
-        if (!range) return true;
-        const t = new Date(iso).getTime();
-        if (!iso || isNaN(t)) return false;
-        const now = new Date();
-        const startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-        if (range === "today") return t >= startToday;
-        if (range === "week") return t >= startToday - 6 * 86400000;
-        if (range === "month") return t >= new Date(now.getFullYear(), now.getMonth(), 1).getTime();
-        return true;
-    }
-
-    function statusSelect(kind, id, current, list) {
-        const cur = current || "New";
-        return '<select class="status-sel s-' + esc(cur.toLowerCase()) + '" data-kind="' + kind + '" data-id="' + esc(id) + '">' +
-            list.map(function (s) {
-                return "<option" + (s === cur ? " selected" : "") + ">" + s + "</option>";
-            }).join("") + "</select>";
-    }
-
-    const DEL_BTN = function (attr, id) {
-        return '<button type="button" class="act del" ' + attr + '="' + esc(id) + '" title="Delete"><i class="fa-regular fa-trash-can"></i></button>';
-    };
-
-    // Property filter ki list enquiries se banti hai
-    function fillPropFilter() {
-        const sel = document.getElementById("enqProp");
-        const keep = sel.value;
-        const titles = Array.from(new Set(
-            enquiries.map(function (e) { return e.propertyTitle; }).filter(Boolean)
-        )).sort();
-        sel.innerHTML = '<option value="">All properties</option>' + titles.map(function (t) {
-            return '<option value="' + esc(t) + '">' + esc(t) + "</option>";
-        }).join("");
-        sel.value = titles.includes(keep) ? keep : "";
-    }
-
     function renderEnquiryPage() {
 
         const q = document.getElementById("enqSearch").value.trim().toLowerCase();
-        const st = document.getElementById("enqStatus").value;
-        const range = document.getElementById("enqDate").value;
-        const prop = document.getElementById("enqProp").value;
         const body = document.getElementById("enqRows");
 
         const list = enquiries.filter(function (e) {
-            if (st && (e.status || "New") !== st) return false;
-            if (prop && e.propertyTitle !== prop) return false;
-            if (!inRange(e.createdAt, range)) return false;
             return !q || [e.name, e.phone, e.propertyTitle, e.message].join(" ").toLowerCase().includes(q);
         });
-
-        setText("enqCount", "Showing " + list.length + " of " + enquiries.length);
 
         body.innerHTML = list.length
             ? list.map(function (e) {
                 const c = enquiryCells(e);
-                return `<tr><td>${c.date}</td><td>${c.name}</td><td>${c.phone}</td><td>${c.property}</td><td class="msg-cell">${c.message}</td>
-                    <td>${statusSelect("enq", e.id, e.status, ENQ_STATUS)}</td>
-                    <td>${DEL_BTN("data-enq-del", e.id)}</td></tr>`;
+                return `<tr><td>${c.date}</td><td>${c.name}</td><td>${c.phone}</td><td>${c.property}</td><td class="msg-cell">${c.message}</td></tr>`;
             }).join("")
-            : '<tr><td colspan="7" class="empty">No enquiries found.</td></tr>';
+            : '<tr><td colspan="5" class="empty">No enquiries found.</td></tr>';
     }
 
     function renderMessagePage() {
 
         const q = document.getElementById("msgSearch").value.trim().toLowerCase();
-        const st = document.getElementById("msgStatus").value;
-        const range = document.getElementById("msgDate").value;
         const body = document.getElementById("msgRows");
 
         const list = messages.filter(function (m) {
-            if (st && (m.status || "New") !== st) return false;
-            if (!inRange(m.createdAt, range)) return false;
             return !q || [m.fullName, m.email, m.phone, m.subject, m.message].join(" ").toLowerCase().includes(q);
         });
-
-        setText("msgCount", "Showing " + list.length + " of " + messages.length);
 
         body.innerHTML = list.length
             ? list.map(function (m) {
@@ -826,39 +765,25 @@
                     <td>${esc(m.email)}<br><small style="color:#64748b">${esc(m.phone)}</small></td>
                     <td>${esc(m.subject)}</td>
                     <td class="msg-cell">${esc(m.message)}</td>
-                    <td>${statusSelect("msg", m.id, m.status, MSG_STATUS)}</td>
-                    <td>${DEL_BTN("data-msg-del", m.id)}</td>
                 </tr>`;
             }).join("")
-            : '<tr><td colspan="7" class="empty">No messages found.</td></tr>';
+            : '<tr><td colspan="5" class="empty">No messages found.</td></tr>';
     }
 
     function renderUserPage() {
 
         const q = document.getElementById("userSearch").value.trim().toLowerCase();
-        const range = document.getElementById("userDate").value;
-        const sort = document.getElementById("userSort").value;
         const body = document.getElementById("userRows");
 
         const list = users.filter(function (u) {
-            if (!inRange(u.createdAt, range)) return false;
             return !q || [u.id, u.name, u.email, u.phone].join(" ").toLowerCase().includes(q);
         });
 
-        // API se newest pehle aata hai
-        if (sort === "oldest") list.reverse();
-
-        setText("userCount", "Showing " + list.length + " of " + users.length);
-
         body.innerHTML = list.length
             ? list.map(function (u) {
-                return `<tr><td>${esc(u.id)}</td><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td>${esc(u.phone)}</td><td>User</td>
-                    <td>
-                        <button type="button" class="act edit" data-user-edit="${esc(u.id)}" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                        ${DEL_BTN("data-user-del", u.id)}
-                    </td></tr>`;
+                return `<tr><td>${esc(u.id)}</td><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td>${esc(u.phone)}</td><td>User</td></tr>`;
             }).join("")
-            : '<tr><td colspan="6" class="empty">No users found.</td></tr>';
+            : '<tr><td colspan="5" class="empty">No users found.</td></tr>';
     }
 
     async function loadLists() {
@@ -1213,165 +1138,6 @@
         try { localStorage.removeItem(BELL_KEY); } catch (e) { }
         renderActivity();
         toast("Notifications reset.", true);
-    });
-
-        // ---------- Edit / Delete / Status / Filters ----------
-
-    async function errMsg(res, fallback) {
-        try {
-            const d = await res.json();
-            if (d.message) return d.message;
-        } catch (e) { }
-        return fallback + " (status " + res.status + ").";
-    }
-
-    async function deleteItem(url, label, question) {
-        if (!confirm(question)) return;
-        try {
-            const res = await api(url, { method: "DELETE" });
-            if (res.ok) {
-                toast(label + " deleted.", true);
-                await loadLists();
-                refreshStats();
-            } else {
-                toast(await errMsg(res, "Could not delete"), false);
-            }
-        } catch (err) {
-            toast("Could not reach the server.", false);
-        }
-    }
-
-    async function saveStatus(sel, list, base) {
-        if (!sel.classList.contains("status-sel")) return;
-        const item = list.find(function (x) { return String(x.id) === sel.dataset.id; });
-        if (!item) return;
-        const old = item.status || "New";
-        try {
-            const res = await api(base + item.id + "/status", {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ status: sel.value })
-            });
-            if (res.ok) {
-                item.status = sel.value;
-                sel.className = "status-sel s-" + sel.value.toLowerCase();
-                toast("Status updated.", true);
-            } else {
-                sel.value = old;
-                toast(await errMsg(res, "Could not update"), false);
-            }
-        } catch (err) {
-            sel.value = old;
-            toast("Could not reach the server.", false);
-        }
-    }
-
-    // Enquiries
-    document.getElementById("enqRows").addEventListener("change", function (event) {
-        saveStatus(event.target, enquiries, "/api/admin/inquiries/");
-    });
-    document.getElementById("enqRows").addEventListener("click", function (event) {
-        const del = event.target.closest("[data-enq-del]");
-        if (!del) return;
-        deleteItem("/api/admin/inquiries/" + del.dataset.enqDel, "Enquiry",
-            "Delete this enquiry? This cannot be undone.");
-    });
-
-    // Messages
-    document.getElementById("msgRows").addEventListener("change", function (event) {
-        saveStatus(event.target, messages, "/api/admin/contact-messages/");
-    });
-    document.getElementById("msgRows").addEventListener("click", function (event) {
-        const del = event.target.closest("[data-msg-del]");
-        if (!del) return;
-        deleteItem("/api/admin/contact-messages/" + del.dataset.msgDel, "Message",
-            "Delete this message? This cannot be undone.");
-    });
-
-    // Users: edit popup
-    const userModal = document.getElementById("userModal");
-    const userForm = document.getElementById("userForm");
-    const userMsg = document.getElementById("userMsg");
-    let editingUserId = null;
-
-    function openUserModal(id) {
-        const u = users.find(function (x) { return String(x.id) === String(id); });
-        if (!u) return;
-        editingUserId = u.id;
-        setVal("uEmail", u.email);
-        setVal("uName", u.name);
-        setVal("uPhone", u.phone);
-        userMsg.textContent = "";
-        userModal.hidden = false;
-    }
-
-    function closeUserModal() {
-        userModal.hidden = true;
-    }
-
-    document.getElementById("userModalClose").addEventListener("click", closeUserModal);
-    document.getElementById("userCancel").addEventListener("click", closeUserModal);
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape" && !userModal.hidden) closeUserModal();
-    });
-
-    userForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        const name = val("uName");
-        const phone = val("uPhone");
-
-        if (!name) { userMsg.textContent = "Please enter a name."; return; }
-        if (!/^[0-9+\-\s]{7,15}$/.test(phone)) { userMsg.textContent = "Please enter a valid phone number."; return; }
-
-        userMsg.textContent = "Saving...";
-
-        try {
-            const res = await api("/api/admin/users/" + editingUserId, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name: name, phone: phone })
-            });
-            if (!res.ok) {
-                userMsg.textContent = await errMsg(res, "Could not save");
-                return;
-            }
-            closeUserModal();
-            toast("User updated.", true);
-            await loadLists();
-        } catch (err) {
-            userMsg.textContent = "Could not reach the server.";
-        }
-    });
-
-    // Users: edit / delete buttons
-    document.getElementById("userRows").addEventListener("click", function (event) {
-
-        const edit = event.target.closest("[data-user-edit]");
-        if (edit) {
-            openUserModal(edit.dataset.userEdit);
-            return;
-        }
-
-        const del = event.target.closest("[data-user-del]");
-        if (!del) return;
-
-        const u = users.find(function (x) { return String(x.id) === del.dataset.userDel; });
-        if (!u) return;
-
-        deleteItem("/api/admin/users/" + u.id, "User",
-            'Delete user "' + (u.name || u.email) + '"?\n\nTheir wishlist saves will also be removed. This cannot be undone.');
-    });
-
-    // Filters
-    ["userDate", "userSort"].forEach(function (id) {
-        document.getElementById(id).addEventListener("change", renderUserPage);
-    });
-    ["enqStatus", "enqDate", "enqProp"].forEach(function (id) {
-        document.getElementById(id).addEventListener("change", renderEnquiryPage);
-    });
-    ["msgStatus", "msgDate"].forEach(function (id) {
-        document.getElementById(id).addEventListener("change", renderMessagePage);
     });
 
     // ---------- Start ----------
