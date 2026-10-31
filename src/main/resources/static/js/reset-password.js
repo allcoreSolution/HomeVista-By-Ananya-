@@ -11,17 +11,17 @@ resetForm.addEventListener("submit", function (event) {
     const confirmPassword = document.getElementById("confirmPassword").value;
 
     if (token === "" || newPassword === "" || confirmPassword === "") {
-        alert("Please fill all the fields.");
+        hvAlert("Please fill in all the fields.", { title: "Missing details", kind: "warn" });
         return;
     }
 
     if (newPassword.length < 6) {
-        alert("Password must be at least 6 characters.");
+        hvAlert("Password must be at least 6 characters.", { title: "Password too short", kind: "warn" });
         return;
     }
 
     if (newPassword !== confirmPassword) {
-        alert("Passwords do not match.");
+        hvAlert("The two passwords do not match.", { title: "Passwords do not match", kind: "warn" });
         return;
     }
 
@@ -36,12 +36,19 @@ resetForm.addEventListener("submit", function (event) {
             });
         })
         .then(function (result) {
-            alert(result.data.message);
-            if (result.ok) {
-                window.location.href = "login.html";
+            if (!result.ok) {
+                hvAlert(result.data.message || "We could not reset your password. Please try again.", { title: "Reset failed", kind: "error" });
+                return;
             }
+            hvAlert(result.data.message || "Your password has been updated.", {
+                title: "Password changed",
+                kind: "success",
+                ok: "Go to Login"
+            }).then(function () {
+                window.location.href = "login.html";
+            });
         })
         .catch(function () {
-                      hvAlert("We could not reach the server. Please check your internet and try again.", { title: "Connection problem", kind: "error" });
+            hvAlert("We could not reach the server. Please check your internet and try again.", { title: "Connection problem", kind: "error" });
         });
 });

@@ -11,7 +11,7 @@ loginForm.addEventListener("submit", function(event) {
 
        if (email === "" || password === "") {
 
-        alert("Please enter email and password.");
+        hvAlert("Please enter your email and password.", { title: "Missing details", kind: "warn" });
 
         return;
     }
@@ -28,7 +28,7 @@ loginForm.addEventListener("submit", function(event) {
         })
         .then(function (result) {
             if (!result.ok) {
-                                hvAlert(result.data.message || "Could not create your account. Please try again.", { title: "Sign up failed", kind: "error" });
+                hvAlert(result.data.message || "We could not log you in. Please check your email and password.", { title: "Login failed", kind: "error" });
                 return;
             }
             localStorage.setItem("isLoggedIn", "true");

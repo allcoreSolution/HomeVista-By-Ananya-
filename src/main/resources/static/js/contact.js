@@ -9,7 +9,7 @@ contactBtn.addEventListener("click", function () {
     const message = document.getElementById("message").value.trim();
 
     if (fullName === "" || email === "" || message === "") {
-        alert("Please fill name, email and message.");
+        hvAlert("Please fill in your name, email and message.", { title: "Missing details", kind: "warn" });
         return;
     }
 
@@ -24,16 +24,18 @@ contactBtn.addEventListener("click", function () {
             });
         })
         .then(function (result) {
-            alert(result.data.message);
             if (result.ok) {
                 document.getElementById("fullName").value = "";
                 document.getElementById("email").value = "";
                 document.getElementById("phone").value = "";
                 document.getElementById("subject").value = "";
                 document.getElementById("message").value = "";
+                hvAlert(result.data.message || "Thanks! Our team will get back to you soon.", { title: "Message sent", kind: "success", ok: "Done" });
+            } else {
+                hvAlert(result.data.message || "Something went wrong. Please try again.", { title: "Could not send", kind: "error" });
             }
         })
         .catch(function () {
-                       hvAlert("We could not reach the server. Please check your internet and try again.", { title: "Connection problem", kind: "error" });
+            hvAlert("We could not reach the server. Please check your internet and try again.", { title: "Connection problem", kind: "error" });
         });
 });

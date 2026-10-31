@@ -16,7 +16,7 @@ signupForm.addEventListener("submit", function (event) {
 
     // Empty fields check
     if (name === "" || email === "" || phone === "" || password === "") {
-        alert("Please fill all the fields.");
+        hvAlert("Please fill in all the fields.", { title: "Missing details", kind: "warn" });
         return;
     }
 

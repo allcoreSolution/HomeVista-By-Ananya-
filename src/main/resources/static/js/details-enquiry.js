@@ -25,12 +25,12 @@
         const message = messageInput.value.trim();
 
         if (name === "" || phone === "") {
-            alert("Please enter your name and phone number.");
+            hvAlert("Please enter your name and phone number.", { title: "Missing details", kind: "warn" });
             return;
         }
 
         if (!/^[0-9+\-\s]{7,15}$/.test(phone)) {
-            alert("Please enter a valid phone number.");
+            hvAlert("Please enter a valid phone number.", { title: "Invalid phone number", kind: "warn" });
             return;
         }
 
@@ -58,10 +58,13 @@
                 });
             })
             .then(function (result) {
-                                hvAlert(result.data.message || "Could not create your account. Please try again.", { title: "Sign up failed", kind: "error" });
                 if (result.ok) {
+                    nameInput.value = "";
                     phoneInput.value = "";
                     messageInput.value = "";
+                    hvAlert(result.data.message || "Thank you! Our team will contact you soon.", { title: "Enquiry sent", kind: "success", ok: "Done" });
+                } else {
+                    hvAlert(result.data.message || "Something went wrong. Please try again.", { title: "Could not send", kind: "error" });
                 }
             })
             .catch(function () {
