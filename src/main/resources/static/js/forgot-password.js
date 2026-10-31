@@ -26,6 +26,6 @@ forgotForm.addEventListener("submit", function (event) {
             window.location.href = "reset-password.html";
         })
         .catch(function () {
-            alert("Server se connect nahi ho paya.");
+                        hvAlert("We could not reach the server. Please check your internet and try again.", { title: "Connection problem", kind: "error" });
         });
 });

@@ -28,7 +28,7 @@ loginForm.addEventListener("submit", function(event) {
         })
         .then(function (result) {
             if (!result.ok) {
-                alert(result.data.message);
+                                hvAlert(result.data.message || "Could not create your account. Please try again.", { title: "Sign up failed", kind: "error" });
                 return;
             }
             localStorage.setItem("isLoggedIn", "true");
@@ -42,7 +42,7 @@ loginForm.addEventListener("submit", function(event) {
             window.location.href = safe ? back : "index.html";
         })
         .catch(function () {
-            alert("Server se connect nahi ho paya.");
+                       hvAlert("We could not reach the server. Please check your internet and try again.", { title: "Connection problem", kind: "error" });
         });
 });
 

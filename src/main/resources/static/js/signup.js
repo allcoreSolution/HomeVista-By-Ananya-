@@ -22,7 +22,7 @@ signupForm.addEventListener("submit", function (event) {
 
     // Terms check
     if (!terms) {
-        alert("Please agree to the Terms & Conditions.");
+     hvAlert("Please agree to the Terms & Conditions to continue.", { title: "Terms required", kind: "error" });
         return;
     }
 
@@ -39,14 +39,19 @@ signupForm.addEventListener("submit", function (event) {
         })
         .then(function (result) {
             if (!result.ok) {
-                alert(result.data.message);
+                                hvAlert(result.data.message || "Could not create your account. Please try again.", { title: "Sign up failed", kind: "error" });
                 return;
             }
-            alert("Account created successfully! Please login.");
-            window.location.href = "login.html";
+                       hvAlert("Your account is ready. Please log in to continue.", {
+                title: "Account created!",
+                kind: "success",
+                ok: "Go to Login"
+            }).then(function () {
+                window.location.href = "login.html";
+            });
         })
         .catch(function () {
-            alert("Server se connect nahi ho paya.");
+                       hvAlert("We could not reach the server. Please check your internet and try again.", { title: "Connection problem", kind: "error" });
         });
 
 });

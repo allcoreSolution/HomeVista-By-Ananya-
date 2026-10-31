@@ -58,14 +58,14 @@
                 });
             })
             .then(function (result) {
-                alert(result.data.message);
+                                hvAlert(result.data.message || "Could not create your account. Please try again.", { title: "Sign up failed", kind: "error" });
                 if (result.ok) {
                     phoneInput.value = "";
                     messageInput.value = "";
                 }
             })
             .catch(function () {
-                alert("Server se connect nahi ho paya.");
+                           hvAlert("We could not reach the server. Please check your internet and try again.", { title: "Connection problem", kind: "error" });
             })
             .finally(function () {
                 button.disabled = false;
