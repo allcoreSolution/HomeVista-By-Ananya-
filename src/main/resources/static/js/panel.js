@@ -280,10 +280,11 @@
         showGate("");
     }
 
-    document.getElementById("profileBtn").addEventListener("click", function () {
-        if (confirm("Lock the admin panel?")) lockPanel();
+        document.getElementById("profileBtn").addEventListener("click", async function () {
+        const yes = await hvConfirm("You will need to log in again to open the panel.",
+            { title: "Lock the admin panel?", ok: "Lock", kind: "warn" });
+        if (yes) lockPanel();
     });
-
     // ---------- Dashboard ----------
 
          const anaCharts = {};
@@ -598,8 +599,9 @@
         const p = findProp(del.dataset.id);
         if (!p) return;
 
-        if (!confirm('Delete "' + p.title + '"? This cannot be undone.')) return;
-
+                const yes = await hvConfirm('"' + p.title + '" will be removed permanently. This cannot be undone.',
+            { title: "Delete property?", ok: "Delete", kind: "danger" });
+        if (!yes) return;
         const res = await api("/api/properties/" + p.id, { method: "DELETE" });
 
         if (res.ok) {
@@ -865,7 +867,9 @@
         const e = enquiries.find(function (x) { return String(x.id) === del.dataset.id; });
         if (!e) return;
 
-        if (!confirm('Delete enquiry from "' + e.name + '"? This cannot be undone.')) return;
+                const yes = await hvConfirm('The enquiry from "' + e.name + '" will be removed permanently. This cannot be undone.',
+            { title: "Delete enquiry?", ok: "Delete", kind: "danger" });
+        if (!yes) return;
 
         const res = await api("/api/admin/inquiries/" + e.id, { method: "DELETE" });
 
@@ -915,7 +919,9 @@
             userModal.hidden = false;
             return;
         }
-            if (!confirm('Delete user "' + u.name + '" (' + u.email + ')? Their wishlist saves are removed too. This cannot be undone.')) return;
+                 const yes = await hvConfirm('"' + u.name + '" (' + u.email + ') will be removed permanently, along with their wishlist saves. This cannot be undone.',
+                { title: "Delete user?", ok: "Delete", kind: "danger" });
+            if (!yes) return;
 
             const res = await api("/api/admin/users/" + u.id, { method: "DELETE" });
 
