@@ -624,3 +624,15 @@ body {
     }
 
 }
+
+
+/* ===== LOGIN BUTTON LOADER + PAGE TRANSITION ===== */
+.main-login-btn:disabled { cursor: wait; opacity: .92; }
+.main-login-btn.is-busy i { display: none; }
+.main-login-btn.is-busy::before { content: ""; display: inline-block; width: 18px; height: 18px; margin-right: 10px; vertical-align: middle; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: hvSpin .7s linear infinite; }
+@keyframes hvSpin { to { transform: rotate(360deg); } }
+
+/* Login ke baad page fade-out */
+body { transition: opacity .4s ease; }
+body.page-leaving { opacity: 0; }
+

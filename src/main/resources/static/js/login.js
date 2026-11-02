@@ -2,6 +2,14 @@
 
 const loginForm = document.getElementById("loginForm");
 
+// Button par loader dikhao / hatao
+function setLoginBusy(btn, busy, label) {
+    btn.disabled = busy;
+    btn.classList.toggle("is-busy", busy);
+    const text = btn.querySelector("span");
+    if (text) text.textContent = busy ? label : "Login";
+}
+
 loginForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
@@ -16,7 +24,10 @@ loginForm.addEventListener("submit", function(event) {
         return;
     }
 
-       fetch("/api/auth/login", {
+      const btn = loginForm.querySelector(".main-login-btn");
+    setLoginBusy(btn, true, "Signing in...");
+
+    fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -27,7 +38,7 @@ loginForm.addEventListener("submit", function(event) {
             });
         })
         .then(function (result) {
-            if (!result.ok) {
+                       if (!result.ok) {
                 hvAlert(result.data.message || "We could not log you in. Please check your email and password.", { title: "Login failed", kind: "error" });
                 return;
             }
@@ -39,9 +50,15 @@ loginForm.addEventListener("submit", function(event) {
             sessionStorage.removeItem("afterLogin");
 
             const safe = back && back.startsWith("/") && !back.startsWith("//") && !back.startsWith("/\\");
-            window.location.href = safe ? back : "index.html";
+                       setLoginBusy(btn, true, "Welcome back!");
+            try { sessionStorage.setItem("hvFadeIn", "1"); } catch (e) { }
+            document.body.classList.add("page-leaving");
+            setTimeout(function () {
+                window.location.href = safe ? back : "index.html";
+            }, 450);
         })
-        .catch(function () {
+                .catch(function () {
+            setLoginBusy(btn, false);
                        hvAlert("We could not reach the server. Please check your internet and try again.", { title: "Connection problem", kind: "error" });
         });
 });

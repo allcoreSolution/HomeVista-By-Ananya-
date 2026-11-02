@@ -43,6 +43,8 @@
 .hvd-ok.danger { background: linear-gradient(90deg, #dc2626, #ef4444); box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3); }
 .hvd-ok:hover { filter: brightness(1.07); }
 .hvd-btn:focus-visible { outline: 3px solid rgba(18, 97, 216, 0.35); outline-offset: 2px; }
+html.hv-fade-in body { animation: hvPageIn .6s ease both; }
+@keyframes hvPageIn { from { opacity: 0; } to { opacity: 1; } }
 
 body.dark .hvd-box { background: #0f1a2e; box-shadow: 0 28px 80px rgba(0, 0, 0, 0.6); }
 body.dark .hvd-title { color: #e8eefc; }
@@ -169,5 +171,14 @@ body.dark .hvd-danger, body.dark .hvd-error { background: #3a1414; color: #f8717
         else if (/fail|error|invalid|wrong|could not|not allowed|already|incorrect|please enter|please fill/.test(low)) { kind = "error"; title = "Something went wrong"; }
         return window.hvAlert(text, { title: title, kind: kind });
     };
+
+    // Login ke baad naya page halka fade-in ho
+    try {
+        if (sessionStorage.getItem("hvFadeIn") === "1") {
+            sessionStorage.removeItem("hvFadeIn");
+            document.documentElement.classList.add("hv-fade-in");
+            setTimeout(function () { document.documentElement.classList.remove("hv-fade-in"); }, 900);
+        }
+    } catch (e) { }
 
 })();
