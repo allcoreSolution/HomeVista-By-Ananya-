@@ -165,8 +165,8 @@ body.nav-hidden .main { margin-left: 0; }
 
 /* ============ CARDS ============ */
 .card { background: #fff; border-radius: 14px; padding: 20px; box-shadow: 0 6px 24px rgba(20, 40, 80, 0.07); }
-.card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-.card-head h3 { font-size: 18px; }
+.card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 14px; }
+.card-head h3 { font-size: 18px; padding-top: 8px; }
 
 .donut-card { max-width: 640px; }
 .donut-body { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
@@ -202,7 +202,8 @@ body.nav-hidden .main { margin-left: 0; }
 .mini-search i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #64748b; font-size: 13px; }
 .mini-search input { padding: 10px 12px 10px 34px; border: 1px solid #d5dde8; border-radius: 8px; font-size: 14px; width: 220px; }
 .tools select { padding: 10px 12px; border: 1px solid #d5dde8; border-radius: 8px; font-size: 14px; background: #fff; }
-.tools .date-inp { padding: 9px 12px; border: 1px solid #d5dde8; border-radius: 8px; font-size: 14px; background: #fff; color: #0f2547; }
+.tools .date-inp { padding: 9px 12px; border: 1px solid #d5dde8; border-radius: 8px; font-size: 14px; background: #fff; color: #0f2547; width: 148px; }
+.tools { justify-content: flex-end; }
 
 .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: #1261d8; color: #fff; border: 0; border-radius: 8px; font-weight: 700; font-size: 14px; }
 .btn-ghost { padding: 10px 18px; background: #fff; color: #475569; border: 1px solid #d5dde8; border-radius: 8px; font-weight: 700; font-size: 14px; }
